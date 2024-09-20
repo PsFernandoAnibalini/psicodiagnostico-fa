@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Psicodiagnósticos Online</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#sobre-mi">Sobre mí</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección de Inicio -->
+    <section id="inicio">
+        <h1>Bienvenido a Psicodiagnósticos Online</h1>
+        <p>Realiza tus psicodiagnósticos de manera rápida y fácil desde la comodidad de tu hogar.</p>
+        <button onclick="window.location.href='#test'">Realizar un Test</button>
+    </section>
+
+    <!-- Sección de Servicios -->
+    <section id="servicios">
+        <h2>Servicios de Psicodiagnóstico</h2>
+        <ul>
+            <li>Test de Personalidad</li>
+            <li>Evaluación de Inteligencia</li>
+            <li>Orientación Vocacional</li>
+            <li>Psicología Financiera</li>
+        </ul>
+    </section>
+
+    <!-- Sección Sobre Mí -->
+    <section id="sobre-mi">
+        <h2>Sobre Mí</h2>
+        <p>Soy un psicólogo especializado en diagnósticos psicológicos y aplico técnicas innovadoras apoyadas en la inteligencia artificial para ofrecer resultados precisos y personalizados.</p>
+    </section>
+
+    <!-- Formulario de Test (sección de diagnóstico) -->
+    <section id="test">
+        <h2>Realiza tu Test</h2>
+        <form id="testForm">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" required>
+
+            <h3>Preguntas del Test</h3>
+            <p>1. ¿Te consideras una persona extrovertida?</p>
+            <label><input type="radio" name="pregunta1" value="si" required> Sí</label>
+            <label><input type="radio" name="pregunta1" value="no"> No</label>
+
+            <p>2. ¿Te cuesta tomar decisiones importantes?</p>
+            <label><input type="radio" name="pregunta2" value="si" required> Sí</label>
+            <label><input type="radio" name="pregunta2" value="no"> No</label>
+
+            <!-- Puedes agregar más preguntas aquí -->
+
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <form>
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2024 Psicodiagnósticos Online. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
