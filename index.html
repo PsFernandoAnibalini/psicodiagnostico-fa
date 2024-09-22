@@ -19,17 +19,12 @@
             </ul>
         </nav>
     </header>
- <section id="sobre-mi">
-        <h2>Sobre Mí</h2>
-        <p>Soy un psicólogo especializado en diagnósticos psicológicos y aplico técnicas innovadoras apoyadas en la inteligencia artificial para ofrecer resultados precisos y personalizados.</p>
-    </section>
+
     <!-- Sección de Inicio -->
-        <!-- Sección Sobre Mí -->
-   
     <section id="inicio">
         <h1>Bienvenido a Psicodiagnósticos Online</h1>
         <p>Realiza tus psicodiagnósticos de manera rápida y fácil desde la comodidad de tu hogar.</p>
-        <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdUFZieIcCjEKwVu0GmDnAVPnjnE49325n64jLbYh4Ian684A/viewform?usp=sf_link')">Test del Burnout</button>
+        <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScTxPO9ct3vtnYBT3Rk0b3BahOjgwEHbkla7V8FSSzkViHPEA/viewform?usp=sf_link')">Datos Personales</button>
     </section>
 
     <!-- Sección de Servicios -->
@@ -43,29 +38,36 @@
         </ul>
     </section>
 
+    <!-- Sección Sobre Mí -->
+    <section id="sobre-mi">
+        <h2>Sobre Mí</h2>
+        <p>Soy un psicólogo especializado en diagnósticos psicológicos y aplico técnicas innovadoras apoyadas en la inteligencia artificial para ofrecer resultados precisos y personalizados.</p>
+    </section>
+
     <!-- Formulario de Test (sección de diagnóstico) -->
     <section id="test">
         <h2>Realiza tu Test</h2>
         <form id="testForm">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
-
             <label for="edad">Edad:</label>
             <input type="number" id="edad" name="edad" required>
-
             <h3>Preguntas del Test</h3>
             <p>1. ¿Te consideras una persona extrovertida?</p>
             <label><input type="radio" name="pregunta1" value="si" required> Sí</label>
             <label><input type="radio" name="pregunta1" value="no"> No</label>
-
             <p>2. ¿Te cuesta tomar decisiones importantes?</p>
             <label><input type="radio" name="pregunta2" value="si" required> Sí</label>
             <label><input type="radio" name="pregunta2" value="no"> No</label>
-
-            <!-- Puedes agregar más preguntas aquí -->
-
             <button type="submit">Enviar</button>
         </form>
+    </section>
+
+    <!-- Sección de Test de Tiempo de Reacción -->
+    <section id="test-timer">
+        <h2>Test de Tiempo de Reacción</h2>
+        <button id="startTest">Iniciar Test</button>
+        <div id="resultado"></div>
     </section>
 
     <!-- Sección de Contacto -->
@@ -80,63 +82,55 @@
         </form>
     </section>
 
-<!-- Sección de Test de Tiempo de Reacción -->
-<section id="test-timer">
-    <h2>Test de Tiempo de Reacción</h2>
-    <button id="startTest">Iniciar Test</button>
-    <div id="resultado"></div>
-</section>
-
-<script>
-    const intentos = 5;
-    let tiemposReaccion = [];
-
-    document.getElementById('startTest').addEventListener('click', function() {
-        alert('¡Prepárate! Comenzaremos en 3 segundos...');
-        setTimeout(() => {
-            let nombre = prompt("Por favor, introduce tu nombre:");
-            realizarIntentos(nombre);
-        }, 3000);
-    });
-
-    function realizarIntentos(nombre) {
-        for (let i = 0; i < intentos; i++) {
-            setTimeout(() => {
-                const inicio = Date.now();
-                alert(`Intento ${i + 1}: Presiona ENTER cuando creas que han pasado 5 segundos.`);
-                setTimeout(() => {
-                    const fin = Date.now();
-                    const tiempoReaccion = (fin - inicio) / 1000; // Convertir a segundos
-                    tiemposReaccion.push(tiempoReaccion);
-                    document.getElementById('resultado').innerHTML += `Intento ${i + 1}: ${tiempoReaccion.toFixed(3)} segundos.<br>`;
-                    if (i === intentos - 1) {
-                        calcularPromedio();
-                    }
-                }, 5000);
-            }, i * 6000); // Espera entre intentos
-        }
-    }
-
-    function calcularPromedio() {
-        const promedio = tiemposReaccion.reduce((a, b) => a + b, 0) / tiemposReaccion.length;
-        document.getElementById('resultado').innerHTML += `Tiempo promedio de reacción: ${promedio.toFixed(3)} segundos.`;
-        let otraVez = prompt("¿Deseas realizar otro intento? (sí/no):");
-        if (otraVez.toLowerCase() === 'sí' || otraVez.toLowerCase() === 'si') {
-            tiemposReaccion = [];
-            document.getElementById('resultado').innerHTML = ''; // Limpiar resultados
-            document.getElementById('startTest').click(); // Reiniciar el test
-        } else {
-            alert("¡Hasta luego!");
-        }
-    }
-</script>
-
     <!-- Pie de página -->
     <footer>
         <p>&copy; 2024 Psicodiagnósticos Online. Todos los derechos reservados.</p>
     </footer>
 
     <script src="script.js"></script>
+    <!-- Script del Test de Tiempo de Reacción -->
+    <script>
+        const intentos = 5;
+        let tiemposReaccion = [];
+
+        document.getElementById('startTest').addEventListener('click', function() {
+            alert('¡Prepárate! Comenzaremos en 3 segundos...');
+            setTimeout(() => {
+                let nombre = prompt("Por favor, introduce tu nombre:");
+                realizarIntentos(nombre);
+            }, 3000);
+        });
+
+        function realizarIntentos(nombre) {
+            for (let i = 0; i < intentos; i++) {
+                setTimeout(() => {
+                    const inicio = Date.now();
+                    alert(`Intento ${i + 1}: Presiona ENTER cuando creas que han pasado 5 segundos.`);
+                    setTimeout(() => {
+                        const fin = Date.now();
+                        const tiempoReaccion = (fin - inicio) / 1000; // Convertir a segundos
+                        tiemposReaccion.push(tiempoReaccion);
+                        document.getElementById('resultado').innerHTML += `Intento ${i + 1}: ${tiempoReaccion.toFixed(3)} segundos.<br>`;
+                        if (i === intentos - 1) {
+                            calcularPromedio();
+                        }
+                    }, 5000);
+                }, i * 6000); // Espera entre intentos
+            }
+        }
+
+        function calcularPromedio() {
+            const promedio = tiemposReaccion.reduce((a, b) => a + b, 0) / tiemposReaccion.length;
+            document.getElementById('resultado').innerHTML += `Tiempo promedio de reacción: ${promedio.toFixed(3)} segundos.`;
+            let otraVez = prompt("¿Deseas realizar otro intento? (sí/no):");
+            if (otraVez.toLowerCase() === 'sí' || otraVez.toLowerCase() === 'si') {
+                tiemposReaccion = [];
+                document.getElementById('resultado').innerHTML = ''; // Limpiar resultados
+                document.getElementById('startTest').click(); // Reiniciar el test
+            } else {
+                alert("¡Hasta luego!");
+            }
+        }
+    </script>
 </body>
 </html>
-
