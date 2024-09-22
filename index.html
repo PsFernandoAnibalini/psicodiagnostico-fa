@@ -80,24 +80,55 @@
         </form>
     </section>
 
-    <!-- Sección de Test de Tiempo de Reacción -->
+<!-- Sección de Test de Tiempo de Reacción -->
 <section id="test-timer">
     <h2>Test de Tiempo de Reacción</h2>
     <button id="startTest">Iniciar Test</button>
-    <p id="resultado"></p>
+    <div id="resultado"></div>
 </section>
 
 <script>
+    const intentos = 5;
+    let tiemposReaccion = [];
+
     document.getElementById('startTest').addEventListener('click', function() {
-        alert('¡Prepárate! El test comenzará en 3 segundos...');
+        alert('¡Prepárate! Comenzaremos en 3 segundos...');
         setTimeout(() => {
-            const startTime = Date.now();
-            alert('¡Ya!');
-            const endTime = Date.now();
-            const reactionTime = endTime - startTime;
-            document.getElementById('resultado').innerText = `Tu tiempo de reacción es: ${reactionTime} ms`;
+            let nombre = prompt("Por favor, introduce tu nombre:");
+            realizarIntentos(nombre);
         }, 3000);
     });
+
+    function realizarIntentos(nombre) {
+        for (let i = 0; i < intentos; i++) {
+            setTimeout(() => {
+                const inicio = Date.now();
+                alert(`Intento ${i + 1}: Presiona ENTER cuando creas que han pasado 5 segundos.`);
+                setTimeout(() => {
+                    const fin = Date.now();
+                    const tiempoReaccion = (fin - inicio) / 1000; // Convertir a segundos
+                    tiemposReaccion.push(tiempoReaccion);
+                    document.getElementById('resultado').innerHTML += `Intento ${i + 1}: ${tiempoReaccion.toFixed(3)} segundos.<br>`;
+                    if (i === intentos - 1) {
+                        calcularPromedio();
+                    }
+                }, 5000);
+            }, i * 6000); // Espera entre intentos
+        }
+    }
+
+    function calcularPromedio() {
+        const promedio = tiemposReaccion.reduce((a, b) => a + b, 0) / tiemposReaccion.length;
+        document.getElementById('resultado').innerHTML += `Tiempo promedio de reacción: ${promedio.toFixed(3)} segundos.`;
+        let otraVez = prompt("¿Deseas realizar otro intento? (sí/no):");
+        if (otraVez.toLowerCase() === 'sí' || otraVez.toLowerCase() === 'si') {
+            tiemposReaccion = [];
+            document.getElementById('resultado').innerHTML = ''; // Limpiar resultados
+            document.getElementById('startTest').click(); // Reiniciar el test
+        } else {
+            alert("¡Hasta luego!");
+        }
+    }
 </script>
 
     <!-- Pie de página -->
