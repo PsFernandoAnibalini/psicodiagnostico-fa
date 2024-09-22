@@ -80,6 +80,26 @@
         </form>
     </section>
 
+    <!-- Sección de Test de Tiempo de Reacción -->
+<section id="test-timer">
+    <h2>Test de Tiempo de Reacción</h2>
+    <button id="startTest">Iniciar Test</button>
+    <p id="resultado"></p>
+</section>
+
+<script>
+    document.getElementById('startTest').addEventListener('click', function() {
+        alert('¡Prepárate! El test comenzará en 3 segundos...');
+        setTimeout(() => {
+            const startTime = Date.now();
+            alert('¡Ya!');
+            const endTime = Date.now();
+            const reactionTime = endTime - startTime;
+            document.getElementById('resultado').innerText = `Tu tiempo de reacción es: ${reactionTime} ms`;
+        }, 3000);
+    });
+</script>
+
     <!-- Pie de página -->
     <footer>
         <p>&copy; 2024 Psicodiagnósticos Online. Todos los derechos reservados.</p>
