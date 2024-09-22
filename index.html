@@ -88,49 +88,41 @@
     </footer>
 
     <script src="script.js"></script>
-    <!-- Script del Test de Tiempo de Reacción -->
-    <script>
-        const intentos = 5;
-        let tiemposReaccion = [];
+    <!-- Sección de Test de Tiempo de Reacción -->
+<section id="test-reaccion">
+    <h2>Test de Tiempo de Reacción</h2>
+    <div id="testArea" style="width: 200px; height: 200px; background-color: red; margin: auto;"></div>
+    <button id="startButton">Iniciar Test</button>
+    <div id="resultado"></div>
+</section>
 
-        document.getElementById('startTest').addEventListener('click', function() {
-            alert('¡Prepárate! Comenzaremos en 3 segundos...');
-            setTimeout(() => {
-                let nombre = prompt("Por favor, introduce tu nombre:");
-                realizarIntentos(nombre);
-            }, 3000);
-        });
+<script>
+    let startTime;
+    const testArea = document.getElementById('testArea');
+    const resultado = document.getElementById('resultado');
+    const startButton = document.getElementById('startButton');
 
-        function realizarIntentos(nombre) {
-            for (let i = 0; i < intentos; i++) {
-                setTimeout(() => {
-                    const inicio = Date.now();
-                    alert(`Intento ${i + 1}: Presiona ENTER cuando creas que han pasado 5 segundos.`);
-                    setTimeout(() => {
-                        const fin = Date.now();
-                        const tiempoReaccion = (fin - inicio) / 1000; // Convertir a segundos
-                        tiemposReaccion.push(tiempoReaccion);
-                        document.getElementById('resultado').innerHTML += `Intento ${i + 1}: ${tiempoReaccion.toFixed(3)} segundos.<br>`;
-                        if (i === intentos - 1) {
-                            calcularPromedio();
-                        }
-                    }, 5000);
-                }, i * 6000); // Espera entre intentos
-            }
+    startButton.addEventListener('click', () => {
+        resultado.innerHTML = "";
+        testArea.style.backgroundColor = "red";
+        startButton.disabled = true;
+
+        // Esperar un tiempo aleatorio antes de cambiar el color
+        const waitTime = Math.random() * 3000 + 2000; // Entre 2 y 5 segundos
+        setTimeout(() => {
+            testArea.style.backgroundColor = "green";
+            startTime = Date.now();
+        }, waitTime);
+    });
+
+    testArea.addEventListener('click', () => {
+        if (testArea.style.backgroundColor === "green") {
+            const reactionTime = (Date.now() - startTime) / 1000; // Tiempo en segundos
+            resultado.innerHTML = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos.`;
+            testArea.style.backgroundColor = "red";
+            startButton.disabled = false;
+        } else {
+            alert("¡Aún no ha cambiado de color! Espera a que se ponga verde.");
         }
-
-        function calcularPromedio() {
-            const promedio = tiemposReaccion.reduce((a, b) => a + b, 0) / tiemposReaccion.length;
-            document.getElementById('resultado').innerHTML += `Tiempo promedio de reacción: ${promedio.toFixed(3)} segundos.`;
-            let otraVez = prompt("¿Deseas realizar otro intento? (sí/no):");
-            if (otraVez.toLowerCase() === 'sí' || otraVez.toLowerCase() === 'si') {
-                tiemposReaccion = [];
-                document.getElementById('resultado').innerHTML = ''; // Limpiar resultados
-                document.getElementById('startTest').click(); // Reiniciar el test
-            } else {
-                alert("¡Hasta luego!");
-            }
-        }
-    </script>
-</body>
-</html>
+    });
+</script>
