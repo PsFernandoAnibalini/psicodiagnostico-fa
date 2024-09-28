@@ -97,15 +97,15 @@
         </nav>
     </header>
 
- <!-- Sección de Bienvenida -->
-<section id="inicio">
-    <h1>Bienvenidos a mi consultorio online</h1>
-    <p>Soy Fernando Anibalini, psicólogo graduado en la Universidad Nacional de Rosario en marzo de 2012.</p>
-    <p>Mi intención con estos tests, apoyados en inteligencia artificial, es ayudar a la gente a comprender mejor su bienestar emocional y psicológico.</p>
-    
-    <!-- Botón de WhatsApp debajo de la biografía -->
-    <button onclick="window.open('https://wa.me/5493416100855', '_blank')">Hablemos por WhatsApp</button>
-</section>
+    <!-- Sección de Bienvenida -->
+    <section id="inicio">
+        <h1>Bienvenido a Psicodiagnósticos Online</h1>
+        <p>Soy Fernando Anibalini, psicólogo graduado en la Universidad Nacional de Rosario en marzo de 2012.</p>
+        <p>Mi intención con estos tests, apoyados en inteligencia artificial, es ayudar a la gente a comprender mejor su bienestar emocional y psicológico.</p>
+        
+        <!-- Botón de WhatsApp -->
+        <button onclick="window.open('https://wa.me/5493416100855', '_blank')">Haceme tu consulta por WhatsApp</button>
+    </section>
 
     <!-- Sección de Servicios -->
     <section id="servicios">
@@ -118,12 +118,42 @@
                 <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScwbu-dpGPVmYf24Bp6QFDvcuy8IjzDgtTE-DEFJJSnCfHplA/viewform?usp=sf_link')">Escala de Afectividad (PANAS) para Adolescentes</button>
             </li>
             <li>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSedd2SdfqTR8nlho0APpgRi1BScK6wTmW0B23CkWOHw_cUbDQ/viewform?usp=sf_link')">Escala de Autoestima Global de Rosenberg</button>
-            </li>
-             <li>
                 <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScHbmZ4now7CLSkPMCL5Z4m2pG2GHX9mHypldHqoouOPjYpRg/viewform?usp=sf_link')">Test de ansiedad ante la muerte</button>
             </li>
+            <li>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSedd2SdfqTR8nlho0APpgRi1BScK6wTmW0B23CkWOHw_cUbDQ/viewform?usp=sf_link')">Escala de Autoestima Global de Rosenberg</button>
+            </li>
         </ul>
+    </section>
+
+    <!-- Sección de Test de Tiempo de Reacción -->
+    <section id="reaction-test">
+        <h2>Prueba tu tiempo de reacción</h2>
+        <p>Presiona "Iniciar" para comenzar. Luego, presiona "Detener" cuando creas que han pasado 5 segundos.</p>
+        <button id="startButton">Iniciar</button>
+        <button id="stopButton" disabled>Detener</button>
+        <p id="result"></p>
+
+        <script>
+            let startTime, endTime;
+
+            // Iniciar el cronómetro
+            document.getElementById('startButton').addEventListener('click', function() {
+                document.getElementById('result').textContent = '';  // Limpiar resultados
+                startTime = new Date().getTime();  // Guardar el tiempo de inicio
+                document.getElementById('startButton').disabled = true;  // Deshabilitar botón de inicio
+                document.getElementById('stopButton').disabled = false;  // Habilitar botón de detener
+            });
+
+            // Detener el cronómetro
+            document.getElementById('stopButton').addEventListener('click', function() {
+                endTime = new Date().getTime();  // Guardar el tiempo de fin
+                const reactionTime = (endTime - startTime) / 1000;  // Calcular el tiempo de reacción en segundos
+                document.getElementById('result').textContent = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos.`;  // Mostrar el resultado
+                document.getElementById('startButton').disabled = false;  // Rehabilitar botón de inicio
+                document.getElementById('stopButton').disabled = true;  // Deshabilitar botón de detener
+            });
+        </script>
     </section>
 
     <!-- Sección de Consultas -->
