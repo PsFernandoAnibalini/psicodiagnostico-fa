@@ -141,59 +141,63 @@
         </ul>
     </section>
 
-    <!-- Sección de Test de Tiempo de Reacción -->
-    <section id="reaction-test">
-        <h2>Prueba tu tiempo de reacción</h2>
-        <p>Para realizar la prueba, sigue estos pasos:</p>
-        <ul>
-            <li><strong>Presiona</strong> <strong>"Iniciar"</strong> para comenzar.</li>
-            <li><strong>Presiona</strong> <strong>"Detener"</strong> cuando creas que han pasado 5 segundos.</li>
-        </ul>
-        <button id="startButton">Iniciar</button>
-        <button id="stopButton" disabled>Detener</button>
-        <p id="result"></p>
+   <!-- Sección de Test de Tiempo de Reacción -->
+<section id="reaction-test">
+    <h2>Prueba tu tiempo de reacción</h2>
+    <p>Para realizar la prueba, sigue estos pasos:</p>
+    <ul>
+        <li><strong>Presiona</strong> <strong>"Iniciar"</strong> para comenzar.</li>
+        <li><strong>Presiona</strong> <strong>"Detener"</strong> cuando creas que han pasado 5 segundos.</li>
+    </ul>
+    <button id="startButton">Iniciar</button>
+    <button id="stopButton" disabled>Detener</button>
+    <p id="result"></p>
 
-        <script>
-            let startTime, endTime;
+    <script>
+        let startTime, endTime;
 
-            // Iniciar el cronómetro
-            document.getElementById('startButton').addEventListener('click', function() {
-                document.getElementById('result').textContent = '';  // Limpiar resultados
-                startTime = new Date().getTime();  // Guardar el tiempo de inicio
-                document.getElementById('startButton').disabled = true;  // Deshabilitar botón de inicio
-                document.getElementById('stopButton').disabled = false;  // Habilitar botón de detener
-            });
+        // Iniciar el cronómetro
+        document.getElementById('startButton').addEventListener('click', function() {
+            document.getElementById('result').textContent = '';  // Limpiar resultados
+            startTime = new Date().getTime();  // Guardar el tiempo de inicio
+            document.getElementById('startButton').disabled = true;  // Deshabilitar botón de inicio
+            document.getElementById('stopButton').disabled = false;  // Habilitar botón de detener
+        });
 
-            // Detener el cronómetro
-            document.getElementById('stopButton').addEventListener('click', function() {
-                endTime = new Date().getTime();  // Guardar el tiempo de fin
-                const reactionTime = (endTime - startTime) / 1000;  // Calcular el tiempo de reacción en segundos
+        // Detener el cronómetro
+        document.getElementById('stopButton').addEventListener('click', function() {
+            endTime = new Date().getTime();  // Guardar el tiempo de fin
+            const reactionTime = (endTime - startTime) / 1000;  // Calcular el tiempo de reacción en segundos
 
-                let message; // Variable para almacenar el mensaje
+            let message; // Variable para almacenar el mensaje
 
-                // Calcular la diferencia respecto a 5 segundos
-                const differenceFromFive = reactionTime - 5;
+            // Calcular la diferencia respecto a 5 segundos
+            const differenceFromFive = reactionTime - 5;
 
-                if (reactionTime < 4.5) {
-                    message = `¡Buen trabajo! Tu tiempo de reacción es excepcional: ${reactionTime.toFixed(3)} segundos. ¡Estás bastante cerca de 5 segundos! Puede que estés un poco ansioso!`;
-                } else if (differenceFromFive >= 0 && differenceFromFive < 0.5) {
-                    message = `Excelente. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Eres excepcional!.`;
-                } else if (differenceFromFive >= 0.5 && differenceFromFive < 1.0) {
-                    message = `No está mal. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás empezando a alejarte de 5 segundos. Tal vez debas relajarte un poco.`;
-                } else if (differenceFromFive >= 1.0 && differenceFromFive < 2.0) {
-                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Puede ser útil practicar un poco más para mejorar tu reacción.`;
-                } else if (differenceFromFive >= 2.0 && differenceFromFive < 3.0) {
-                    message = `Parece que puedes mejorar. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Intenta de nuevo y ve si puedes acercarte a 5 segundos.`;
-                } else {
-                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Parece que estás teniendo dificultades. ¡Intenta relajarte y enfocarte más en el ejercicio!`;
-                }
+            if (reactionTime < 3.0) {
+                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Quizás estés un poco ansioso. ¡Intenta relajarte y prueba de nuevo!`;
+            } else if (reactionTime >= 3.0 && reactionTime < 4.0) {
+                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás bien, pero con un poco más de práctica podrás mejorar aún más.`;
+            } else if (reactionTime >= 4.0 && reactionTime < 4.5) {
+                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Está bastante bien, pero hay que ajustar un poco. ¡Sigue practicando!`;
+            } else if (reactionTime === 5.0) {
+                message = `¡Perfecto! Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Eres un maestro en esto!`;
+            } else if (reactionTime > 5.0 && reactionTime <= 5.5) {
+                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás casi perfecto; solo un error por décimas. ¡Sigue así!`;
+            } else if (reactionTime > 5.5 && reactionTime <= 6.5) {
+                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Te has pasado un poco. No te preocupes, ¡practica más y mejorarás!`;
+            } else if (reactionTime > 6.5 && reactionTime <= 7.5) {
+                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Relájate y practica más. ¡Puedes hacerlo mejor!`;
+            } else {
+                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Parece que estás teniendo dificultades. ¡Intenta relajarte y enfocarte más en el ejercicio!`;
+            }
 
-                document.getElementById('result').textContent = message;  // Mostrar el resultado
-                document.getElementById('startButton').disabled = false;  // Rehabilitar botón de inicio
-                document.getElementById('stopButton').disabled = true;  // Deshabilitar botón de detener
-            });
-        </script>
-    </section>
+            document.getElementById('result').textContent = message;  // Mostrar el resultado
+            document.getElementById('startButton').disabled = false;  // Rehabilitar botón de inicio
+            document.getElementById('stopButton').disabled = true;  // Deshabilitar botón de detener
+        });
+    </script>
+</section>
 
     <!-- Sección de Contacto -->
     <section id="contacto">
