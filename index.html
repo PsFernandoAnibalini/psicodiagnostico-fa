@@ -168,32 +168,24 @@
             document.getElementById('stopButton').addEventListener('click', function() {
                 endTime = new Date().getTime();  // Guardar el tiempo de fin
                 const reactionTime = (endTime - startTime) / 1000;  // Calcular el tiempo de reacción en segundos
-                document.getElementById('result').textContent = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos.`;  // Mostrar el resultado
-                document.getElementById('startButton').disabled = false;  // Rehabilitar botón de inicio
-                document.getElementById('stopButton').disabled = true;  // Deshabilitar botón de detener
-            });
-        </script>
-    </section>
 
-    <!-- Sección de Consultas -->
-    <section id="contacto">
-        <h2>Dejame tu consulta</h2>
-        <form>
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
-            <label for="telefono">Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" required>
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="mensaje">Mensaje:</label>
-            <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-    </section>
+                let message; // Variable para almacenar el mensaje
 
-    <!-- Pie de página -->
-    <footer>
-        <p>&copy; 2024 Psicodiagnósticos Online. Todos los derechos reservados.</p>
-    </footer>
-</body>
-</html>
+                // Calcular la diferencia respecto a 5 segundos
+                const differenceFromFive = reactionTime - 5;
+
+                if (reactionTime < 4.5) {
+                    message = `¡Increíble! Tu tiempo de reacción es excepcional: ${reactionTime.toFixed(3)} segundos. ¡Eres muy rápido!`;
+                } else if (differenceFromFive >= 0 && differenceFromFive < 0.5) {
+                    message = `Buen trabajo. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Estás bastante cerca de 5 segundos! Puede que estés un poco ansioso.`;
+                } else if (differenceFromFive >= 0.5 && differenceFromFive < 1.0) {
+                    message = `No está mal. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás empezando a alejarte de 5 segundos. Tal vez debas relajarte un poco.`;
+                } else if (differenceFromFive >= 1.0 && differenceFromFive < 2.0) {
+                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Puede ser útil practicar un poco más para mejorar tu reacción.`;
+                } else if (differenceFromFive >= 2.0 && differenceFromFive < 3.0) {
+                    message = `Parece que puedes mejorar. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Intenta de nuevo y ve si puedes acercarte a 5 segundos. Puede que estés un poco ansioso.`;
+                } else {
+                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Parece que estás teniendo dificultades. ¡Intenta relajarte y enfocarte más en el ejercicio!`;
+                }
+
+                document.getElementById('
