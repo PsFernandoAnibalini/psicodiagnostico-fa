@@ -185,9 +185,17 @@
                 } else if (differenceFromFive >= 2.0 && differenceFromFive < 3.0) {
                     message = `Parece que puedes mejorar. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Intenta de nuevo y ve si puedes acercarte a 5 segundos. Puede que estés un poco ansioso.`;
                 } else {
-                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Parece que estás teniendo dificultades. ¡
+                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Parece que estás teniendo dificultades. ¡Intenta relajarte y enfocarte más en el ejercicio!`;
+                }
 
-    <!-- Sección de Consultas -->
+                document.getElementById('result').textContent = message;  // Mostrar el resultado
+                document.getElementById('startButton').disabled = false;  // Rehabilitar botón de inicio
+                document.getElementById('stopButton').disabled = true;  // Deshabilitar botón de detener
+            });
+        </script>
+    </section>
+
+    <!-- Sección de Contacto -->
     <section id="contacto">
         <h2>Dejame tu consulta</h2>
         <form>
