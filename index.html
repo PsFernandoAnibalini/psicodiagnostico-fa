@@ -202,7 +202,7 @@
 <!-- Sección de Contacto -->
 <section id="contacto">
     <h2>Dejame tu consulta</h2>
-    <form id="contactForm">
+    <form id="contactForm" action="https://Fernandoanibalinipsico.infinityfreeapp.com/send_email.php" method="POST">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
         <label for="telefono">Teléfono:</label>
@@ -212,7 +212,7 @@
         <label for="mensaje">Mensaje:</label>
         <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
         <button type="submit">Enviar</button>
-<form id="contactForm" action="https://Fernandoanibalinipsico.infinityfreeapp.com/send_email.php" method="POST">
+    </form>
     <p id="confirmationMessage" style="display:none;"></p> <!-- Mensaje de confirmación -->
 </section>
 
@@ -220,6 +220,8 @@
     // Manejar el envío del formulario
     document.getElementById('contactForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Evitar que el formulario se envíe de la manera tradicional
+
+        // Obtener los valores del formulario
         const nombre = document.getElementById('nombre').value;
         const telefono = document.getElementById('telefono').value;
         const email = document.getElementById('email').value;
@@ -236,7 +238,6 @@
         document.getElementById('contactForm').reset();
     });
 </script>
-
 
     <!-- Pie de página -->
     <footer>
