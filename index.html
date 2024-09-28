@@ -175,15 +175,15 @@
                 const differenceFromFive = reactionTime - 5;
 
                 if (reactionTime < 4.5) {
-                    message = `¡Increíble! Tu tiempo de reacción es excepcional: ${reactionTime.toFixed(3)} segundos. ¡Eres muy rápido!`;
+                    message = `¡Buen trabajo! Tu tiempo de reacción es excepcional: ${reactionTime.toFixed(3)} segundos. ¡Estás bastante cerca de 5 segundos! Puede que estés un poco ansioso!`;
                 } else if (differenceFromFive >= 0 && differenceFromFive < 0.5) {
-                    message = `Buen trabajo. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Estás bastante cerca de 5 segundos! Puede que estés un poco ansioso.`;
+                    message = `Excelente. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Eres excepcional!.`;
                 } else if (differenceFromFive >= 0.5 && differenceFromFive < 1.0) {
                     message = `No está mal. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás empezando a alejarte de 5 segundos. Tal vez debas relajarte un poco.`;
                 } else if (differenceFromFive >= 1.0 && differenceFromFive < 2.0) {
                     message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Puede ser útil practicar un poco más para mejorar tu reacción.`;
                 } else if (differenceFromFive >= 2.0 && differenceFromFive < 3.0) {
-                    message = `Parece que puedes mejorar. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Intenta de nuevo y ve si puedes acercarte a 5 segundos. Puede que estés un poco ansioso.`;
+                    message = `Parece que puedes mejorar. Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Intenta de nuevo y ve si puedes acercarte a 5 segundos.`;
                 } else {
                     message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Parece que estás teniendo dificultades. ¡Intenta relajarte y enfocarte más en el ejercicio!`;
                 }
