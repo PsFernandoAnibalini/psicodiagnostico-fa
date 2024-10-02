@@ -151,6 +151,7 @@
     </ul>
     <button id="startButton" style="background-color: #003366; color: white;">Iniciar</button>
     <button id="stopButton" disabled style="background-color: red; color: white;">Detener</button>
+    <button id="resetButton" disabled style="background-color: #FF5733; color: white;">Reiniciar</button>
     <p id="result"></p>
 
     <script>
@@ -163,6 +164,7 @@
             document.getElementById('startButton').style.backgroundColor = '#ccc'; // Cambiar a gris
             document.getElementById('startButton').disabled = true;  // Deshabilitar botón de inicio
             document.getElementById('stopButton').disabled = false;  // Habilitar botón de detener
+            document.getElementById('resetButton').disabled = true; // Deshabilitar botón de reiniciar
         });
 
         // Detener el cronómetro
@@ -196,6 +198,16 @@
             document.getElementById('result').textContent = message;  // Mostrar el resultado
             document.getElementById('startButton').disabled = false;  // Rehabilitar botón de inicio
             document.getElementById('stopButton').disabled = true;  // Deshabilitar botón de detener
+            document.getElementById('resetButton').disabled = false; // Habilitar botón de reiniciar
+        });
+
+        // Reiniciar el ejercicio
+        document.getElementById('resetButton').addEventListener('click', function() {
+            document.getElementById('result').textContent = ''; // Limpiar resultados
+            document.getElementById('startButton').style.backgroundColor = '#003366'; // Cambiar de vuelta a azul
+            document.getElementById('startButton').disabled = false;  // Habilitar botón de inicio
+            document.getElementById('stopButton').disabled = true;  // Deshabilitar botón de detener
+            document.getElementById('resetButton').disabled = true; // Deshabilitar botón de reiniciar
         });
     </script>
 </section>
