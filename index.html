@@ -232,8 +232,8 @@
         // Mostrar palabras
         showWordsButton.addEventListener('click', function() {
             wordList.style.display = 'block';
-            recallInput.disabled = false;
-            submitRecallButton.disabled = false;
+            recallInput.disabled = false; // Habilitar el campo de entrada
+            submitRecallButton.disabled = false; // Habilitar el botón de enviar
             showWordsButton.disabled = true; // Deshabilitar el botón de mostrar
             restartButton.disabled = false; // Habilitar el botón de reiniciar
             
@@ -252,8 +252,8 @@
         restartButton.addEventListener('click', function() {
             wordList.style.display = 'none';
             recallInput.value = '';
-            recallInput.disabled = true;
-            submitRecallButton.disabled = true;
+            recallInput.disabled = true; // Deshabilitar campo de entrada
+            submitRecallButton.disabled = true; // Deshabilitar botón de enviar
             showWordsButton.disabled = false; // Habilitar el botón de mostrar
             restartButton.disabled = true; // Deshabilitar el botón de reiniciar
             memoryResult.textContent = ''; // Limpiar el resultado
@@ -269,7 +269,7 @@
             memoryResult.textContent = `Recordaste ${correctCount} de ${words.length} palabras.`;
             recallInput.value = ''; // Limpiar campo de entrada
             recallInput.disabled = true; // Deshabilitar campo de entrada
-            submitRecallButton.style.display = 'none'; // Ocultar botón de enviar
+            submitRecallButton.disabled = true; // Deshabilitar botón de enviar
             showWordsButton.disabled = false; // Habilitar botón de mostrar nuevamente
         });
     </script>
