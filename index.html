@@ -243,8 +243,8 @@
             // Ocultar las palabras después de 10 segundos
             setTimeout(() => {
                 wordList.style.display = 'none';
-                recallInput.disabled = true; // Deshabilitar campo de entrada
-                submitRecallButton.disabled = true; // Deshabilitar botón de enviar
+                recallInput.disabled = false; // Habilitar campo de entrada nuevamente
+                submitRecallButton.disabled = false; // Habilitar botón de enviar
             }, 10000); // 10000 ms = 10 segundos
         });
 
@@ -274,7 +274,6 @@
         });
     </script>
 </section>
-
     
 <!-- Sección de Contacto -->
 <section id="contacto">
