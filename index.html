@@ -108,6 +108,20 @@
             margin-top: 15px;
             font-weight: bold;
         }
+
+        /* Estilos para el temporizador de reacción */
+        #reactionTest {
+            display: none; /* Ocultar por defecto */
+        }
+
+        #reactionResult {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        #reactionMessage {
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -117,6 +131,8 @@
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#memory-test">Prueba de Memoria</a></li>
+                <li><a href="#reaction-test">Prueba de Tiempo de Reacción</a></li>
                 <li><a href="#contacto">Déjame tu consulta</a></li>
             </ul>
         </nav>
@@ -165,6 +181,17 @@
        </div>
    </section>
 
+   <!-- Sección de Prueba de Tiempo de Reacción -->
+   <section id="reaction-test">
+       <h2>Prueba de Tiempo de Reacción</h2>
+       <p id="reactionMessage">Haz clic en "Iniciar Prueba". Cuando el color cambie a verde, haz clic lo más rápido que puedas.</p>
+       <button id="startReactionTest">Iniciar Prueba</button>
+       <div id="reactionTest" style="display:none;">
+           <p style="color:red;" id="reactionBox">¡Prepárate!</p>
+           <div id="reactionResult"></div>
+       </div>
+   </section>
+
    <script>
        const words = ['kiwi', 'cereza', 'fresa', 'banana', 'cereza']; // Palabras a recordar
 
@@ -188,6 +215,42 @@
            document.getElementById('submitRecall').style.display = 'none'; // Ocultar botón de enviar
            document.getElementById('startMemoryTest').disabled = false; // Habilitar botón de inicio nuevamente
        });
+
+       // Variables para la prueba de tiempo de reacción
+       let startTime, endTime;
+
+       // Función para iniciar la prueba de tiempo de reacción
+       document.getElementById('startReactionTest').addEventListener('click', function() {
+           document.getElementById('reactionTest').style.display = 'block'; // Mostrar la sección de la prueba
+           document.getElementById('reactionBox').style.color = 'red'; // Iniciar en rojo
+           document.getElementById('reactionMessage').textContent = 'Esperando...';
+
+           // Esperar un tiempo aleatorio para cambiar el color
+           const waitTime = Math.floor(Math.random() * 4000) + 2000; // Entre 2 y 6 segundos
+           setTimeout(function() {
+               document.getElementById('reactionBox').style.color = 'green'; // Cambiar a verde
+               document.getElementById('reactionMessage').textContent = '¡Haz clic ahora!';
+               startTime = Date.now(); // Capturar el tiempo de inicio
+           }, waitTime);
+       });
+
+       // Capturar el tiempo de reacción al hacer clic
+       document.getElementById('reactionBox').addEventListener('click', function() {
+           if (startTime) {
+               endTime = Date.now();
+               const reactionTime = endTime - startTime; // Calcular el tiempo de reacción
+               document.getElementById('reactionResult').textContent = `Tu tiempo de reacción es: ${reactionTime} ms`;
+               resetReactionTest(); // Reiniciar la prueba
+           }
+       });
+
+       // Función para reiniciar la prueba de reacción
+       function resetReactionTest() {
+           startTime = null; // Reiniciar tiempo de inicio
+           document.getElementById('reactionTest').style.display = 'none'; // Ocultar sección de prueba
+           document.getElementById('reactionBox').style.color = 'red'; // Volver a rojo
+           document.getElementById('reactionMessage').textContent = 'Haz clic en "Iniciar Prueba". Cuando el color cambie a verde, haz clic lo más rápido que puedas.';
+       }
    </script>
 
    <footer>
