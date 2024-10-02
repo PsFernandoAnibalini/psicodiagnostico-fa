@@ -68,7 +68,7 @@
         }
 
         /* Estilo para el botón de iniciar */
-        #startMemoryTest {
+        #startButton {
             background-color: #003366; /* Azul oscuro */
         }
 
@@ -98,30 +98,6 @@
             border: 1px solid #ced4da;
             border-radius: 5px;
         }
-
-        /* Estilo específico para el input de palabras recordadas */
-        #recallInput {
-            margin-top: 15px;
-        }
-
-        #memoryResult {
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        /* Estilos para el temporizador de reacción */
-        #reactionTest {
-            display: none; /* Ocultar por defecto */
-        }
-
-        #reactionResult {
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        #reactionMessage {
-            margin-top: 15px;
-        }
     </style>
 </head>
 <body>
@@ -131,8 +107,6 @@
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#memory-test">Prueba de Memoria</a></li>
-                <li><a href="#reaction-test">Prueba de Tiempo de Reacción</a></li>
                 <li><a href="#contacto">Déjame tu consulta</a></li>
             </ul>
         </nav>
@@ -145,7 +119,7 @@
         <p>Mi intención con estos tests, apoyados en inteligencia artificial, es ayudar a la gente a comprender mejor su bienestar emocional y psicológico.</p>
         
         <!-- Botón de WhatsApp -->
-        <button onclick="window.open('https://wa.me/5493416100855', '_blank')">Haceme tu consulta por WhatsApp</button>
+        <button onclick="window.open('https://wa.me/5493416100855', '_blank')">Háceme tu consulta por WhatsApp</button>
     </section>
 
     <!-- Sección de Servicios -->
@@ -167,94 +141,117 @@
         </ul>
     </section>
 
-   <!-- Sección de Prueba de Memoria a Corto Plazo -->
-   <section id="memory-test">
-       <h2>Prueba de Memoria a Corto Plazo</h2>
-       <p>Recuerda las palabras que verás a continuación:</p>
-       <p id="wordsToRemember"></p> <!-- Aquí se mostrarán las palabras -->
-       <button id="startMemoryTest">Iniciar Prueba</button>
-       <div id="recallSection" style="display:none;">
-           <p>Escribe las palabras que recuerdas:</p>
-           <input type="text" id="recallInput" placeholder="Palabras separadas por comas">
-           <button id="submitRecall">Enviar</button>
-           <div id="memoryResult"></div>
-       </div>
-   </section>
+    <!-- Sección de Test de Tiempo de Reacción y Memoria -->
+    <section id="reaction-test">
+        <h2>Prueba tu tiempo de reacción</h2>
+        <p>Para realizar la prueba, sigue estos pasos:</p>
+        <ul>
+            <li><strong>Presiona</strong> <strong>"Iniciar"</strong> para comenzar.</li>
+            <li><strong>Presiona</strong> <strong>"Detener"</strong> cuando creas que han pasado 5 segundos.</li>
+        </ul>
+        <button id="startButton">Iniciar</button>
+        <button id="stopButton" disabled>Detener</button>
+        <p id="result"></p>
 
-   <!-- Sección de Prueba de Tiempo de Reacción -->
-   <section id="reaction-test">
-       <h2>Prueba de Tiempo de Reacción</h2>
-       <p id="reactionMessage">Haz clic en "Iniciar Prueba". Cuando el color cambie a verde, haz clic lo más rápido que puedas.</p>
-       <button id="startReactionTest">Iniciar Prueba</button>
-       <div id="reactionTest" style="display:none;">
-           <p style="color:red;" id="reactionBox">¡Prepárate!</p>
-           <div id="reactionResult"></div>
-       </div>
-   </section>
+        <script>
+            let startTime, endTime;
 
-   <script>
-       const words = ['kiwi', 'cereza', 'fresa', 'banana', 'cereza']; // Palabras a recordar
+            // Iniciar el cronómetro
+            document.getElementById('startButton').addEventListener('click', function() {
+                document.getElementById('result').textContent = '';  // Limpiar resultados
+                startTime = new Date().getTime();  // Guardar el tiempo de inicio
+                document.getElementById('startButton').disabled = true;  // Deshabilitar botón de inicio
+                document.getElementById('stopButton').disabled = false;  // Habilitar botón de detener
+            });
 
-       // Función para iniciar la prueba de memoria
-       document.getElementById('startMemoryTest').addEventListener('click', function() {
-           document.getElementById('wordsToRemember').textContent = words.join(', '); // Mostrar palabras
-           document.getElementById('recallSection').style.display = 'block'; // Mostrar sección de recuerdo
-           document.getElementById('startMemoryTest').disabled = true; // Deshabilitar botón de inicio
-           setTimeout(function() {
-               document.getElementById('wordsToRemember').textContent = ''; // Ocultar palabras después de 5 segundos
-           }, 5000); // Tiempo de visualización de las palabras (5 segundos)
-       });
+            // Detener el cronómetro
+            document.getElementById('stopButton').addEventListener('click', function() {
+                endTime = new Date().getTime();  // Guardar el tiempo de fin
+                const reactionTime = (endTime - startTime) / 1000;  // Calcular el tiempo de reacción en segundos
 
-       // Enviar las palabras recordadas
-       document.getElementById('submitRecall').addEventListener('click', function() {
-           const recalledWords = document.getElementById('recallInput').value.split(',').map(word => word.trim());
-           const correctCount = recalledWords.filter(word => words.includes(word)).length; // Contar palabras correctas
-           document.getElementById('memoryResult').textContent = `Recordaste ${correctCount} de ${words.length} palabras.`; // Mostrar resultado
-           document.getElementById('recallInput').value = ''; // Limpiar campo de entrada
-           document.getElementById('recallInput').disabled = true; // Deshabilitar campo de entrada
-           document.getElementById('submitRecall').style.display = 'none'; // Ocultar botón de enviar
-           document.getElementById('startMemoryTest').disabled = false; // Habilitar botón de inicio nuevamente
-       });
+                let message; // Variable para almacenar el mensaje
 
-       // Variables para la prueba de tiempo de reacción
-       let startTime, endTime;
+                // Calcular la diferencia respecto a 5 segundos
+                const differenceFromFive = reactionTime - 5;
 
-       // Función para iniciar la prueba de tiempo de reacción
-       document.getElementById('startReactionTest').addEventListener('click', function() {
-           document.getElementById('reactionTest').style.display = 'block'; // Mostrar la sección de la prueba
-           document.getElementById('reactionBox').style.color = 'red'; // Iniciar en rojo
-           document.getElementById('reactionMessage').textContent = 'Esperando...';
+                if (reactionTime < 3.0) {
+                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Quizás estés un poco ansioso. ¡Intenta relajarte y prueba de nuevo!`;
+                } else if (reactionTime >= 3.0 && reactionTime < 4.0) {
+                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás bien, pero con un poco más de práctica podrás mejorar aún más.`;
+                } else if (reactionTime >= 4.0 && reactionTime < 4.5) {
+                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Está bastante bien, pero hay que ajustar un poquitin. ¡Sigue practicando!`;
+                } else if (reactionTime === 5.0) {
+                    message = `¡Perfecto! Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Eres un maestro en esto!`;
+                } else if (reactionTime > 5.0 && reactionTime <= 5.5) {
+                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás casi perfecto; solo un error por décimas. ¡Sigue así!`;
+                } else if (reactionTime > 5.5 && reactionTime <= 6.5) {
+                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Te has pasado un poco. No te preocupes, ¡practica más y mejorarás!`;
+                } else if (reactionTime > 6.5) {
+                    message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Parece que necesitas un poco más de tiempo para adaptarte. ¡No te desanimes, sigue practicando!`;
+                }
 
-           // Esperar un tiempo aleatorio para cambiar el color
-           const waitTime = Math.floor(Math.random() * 4000) + 2000; // Entre 2 y 6 segundos
-           setTimeout(function() {
-               document.getElementById('reactionBox').style.color = 'green'; // Cambiar a verde
-               document.getElementById('reactionMessage').textContent = '¡Haz clic ahora!';
-               startTime = Date.now(); // Capturar el tiempo de inicio
-           }, waitTime);
-       });
+                // Mostrar el resultado en el párrafo
+                document.getElementById('result').textContent = message;
 
-       // Capturar el tiempo de reacción al hacer clic
-       document.getElementById('reactionBox').addEventListener('click', function() {
-           if (startTime) {
-               endTime = Date.now();
-               const reactionTime = endTime - startTime; // Calcular el tiempo de reacción
-               document.getElementById('reactionResult').textContent = `Tu tiempo de reacción es: ${reactionTime} ms`;
-               resetReactionTest(); // Reiniciar la prueba
-           }
-       });
+                // Deshabilitar el botón de detener y habilitar el de iniciar
+                document.getElementById('stopButton').disabled = true;
+                document.getElementById('startButton').disabled = false;
+            });
+        </script>
 
-       // Función para reiniciar la prueba de reacción
-       function resetReactionTest() {
-           startTime = null; // Reiniciar tiempo de inicio
-           document.getElementById('reactionTest').style.display = 'none'; // Ocultar sección de prueba
-           document.getElementById('reactionBox').style.color = 'red'; // Volver a rojo
-           document.getElementById('reactionMessage').textContent = 'Haz clic en "Iniciar Prueba". Cuando el color cambie a verde, haz clic lo más rápido que puedas.';
-       }
-   </script>
+        <h2>Ejercicio de Memoria</h2>
+        <p>Prueba tu memoria con esta lista de palabras. Intenta recordar tantas como puedas.</p>
+        <ul id="wordList"></ul>
+        <button id="showWordsButton">Mostrar Palabras</button>
+        <button id="resetButton" style="display:none;">Reiniciar</button>
 
-   <footer>
-       <p>© 2024 Psicodiagnósticos Online. Todos los derechos reservados.</p>
-   </footer>
+        <script>
+            const words = ["manzana", "banana", "naranja", "uva", "kiwi", "piña", "mango", "cereza"];
+            let displayList = document.getElementById('wordList');
+
+            // Mostrar palabras
+            document.getElementById('showWordsButton').addEventListener('click', function() {
+                displayList.innerHTML = ''; // Limpiar la lista
+                words.forEach(function(word) {
+                    let li = document.createElement('li');
+                    li.textContent = word;
+                    displayList.appendChild(li);
+                });
+
+                // Deshabilitar el botón de mostrar y habilitar el de reiniciar
+                this.disabled = true;
+                document.getElementById('resetButton').style.display = 'inline-block';
+            });
+
+            // Reiniciar el ejercicio
+            document.getElementById('resetButton').addEventListener('click', function() {
+                displayList.innerHTML = ''; // Limpiar la lista
+                this.style.display = 'none'; // Ocultar el botón de reiniciar
+                document.getElementById('showWordsButton').disabled = false; // Habilitar el botón de mostrar
+            });
+        </script>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contacto">
+        <h2>Déjame tu consulta</h2>
+        <form action="mailto:fernandoanibalini.psico@gmail.com" method="post" enctype="text/plain">
+            <label for="name">Tu nombre:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Tu correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Tu consulta:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2024 Psicodiagnósticos Online. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>
