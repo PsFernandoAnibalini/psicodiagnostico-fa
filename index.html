@@ -209,11 +209,11 @@
         <li>naranja</li>
         <li>uva</li>
         <li>kiwi</li>
-        <li>piña</li>
+        <li>anana</li>
         <li>mango</li>
         <li>cereza</li>
     </ul>
-    <button id="showWords">Mostrar Palabras</button>
+    <button id="showWords" style="background-color: #007700; color: white;">Mostrar Palabras</button>
     <button id="restart">Reiniciar</button>
     <p id="memoryResult"></p>
     <label for="recallInput">Escribe las palabras que recuerdas:</label>
@@ -236,6 +236,9 @@
             submitRecallButton.disabled = false;
             showWordsButton.disabled = true; // Deshabilitar el botón de mostrar
             restartButton.disabled = false; // Habilitar el botón de reiniciar
+            
+            // Cambiar el color del botón a gris
+            showWordsButton.style.backgroundColor = '#cccccc';
         });
 
         // Reiniciar la prueba
@@ -247,6 +250,9 @@
             showWordsButton.disabled = false; // Habilitar el botón de mostrar
             restartButton.disabled = true; // Deshabilitar el botón de reiniciar
             memoryResult.textContent = ''; // Limpiar el resultado
+            
+            // Restablecer el color del botón a azul
+            showWordsButton.style.backgroundColor = '#007700';
         });
 
         // Enviar las palabras recordadas
