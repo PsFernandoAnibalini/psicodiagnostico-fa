@@ -98,6 +98,16 @@
             border: 1px solid #ced4da;
             border-radius: 5px;
         }
+
+        /* Estilo específico para el input de palabras recordadas */
+        #recallInput {
+            margin-top: 15px;
+        }
+
+        #memoryResult {
+            margin-top: 15px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -107,7 +117,7 @@
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#contacto">Dejame tu consulta</a></li>
+                <li><a href="#contacto">Déjame tu consulta</a></li>
             </ul>
         </nav>
     </header>
@@ -141,130 +151,47 @@
         </ul>
     </section>
 
-   <!-- Sección de Test de Tiempo de Reacción -->
-<section id="reaction-test">
-    <h2>Prueba tu tiempo de reacción</h2>
-    <p>Para realizar la prueba, sigue estos pasos:</p>
-    <ul>
-        <li><strong>Presiona</strong> <strong>"Iniciar"</strong> para comenzar.</li>
-        <li><strong>Presiona</strong> <strong>"Detener"</strong> cuando creas que han pasado 5 segundos.</li>
-    </ul>
-    <button id="startButton">Iniciar</button>
-    <button id="stopButton" disabled>Detener</button>
-    <p id="result"></p>
+   <!-- Sección de Prueba de Memoria a Corto Plazo -->
+   <section id="memory-test">
+       <h2>Prueba de Memoria a Corto Plazo</h2>
+       <p>Recuerda las palabras que verás a continuación:</p>
+       <p id="wordsToRemember"></p> <!-- Aquí se mostrarán las palabras -->
+       <button id="startMemoryTest">Iniciar Prueba</button>
+       <div id="recallSection" style="display:none;">
+           <p>Escribe las palabras que recuerdas:</p>
+           <input type="text" id="recallInput" placeholder="Palabras separadas por comas">
+           <button id="submitRecall">Enviar</button>
+           <div id="memoryResult"></div>
+       </div>
+   </section>
 
-    <script>
-        let startTime, endTime;
+   <script>
+       const words = ['kiwi', 'cereza', 'fresa', 'banana', 'cereza']; // Palabras a recordar
 
-        // Iniciar el cronómetro
-        document.getElementById('startButton').addEventListener('click', function() {
-            document.getElementById('result').textContent = '';  // Limpiar resultados
-            startTime = new Date().getTime();  // Guardar el tiempo de inicio
-            document.getElementById('startButton').disabled = true;  // Deshabilitar botón de inicio
-            document.getElementById('stopButton').disabled = false;  // Habilitar botón de detener
-        });
+       // Función para iniciar la prueba de memoria
+       document.getElementById('startMemoryTest').addEventListener('click', function() {
+           document.getElementById('wordsToRemember').textContent = words.join(', '); // Mostrar palabras
+           document.getElementById('recallSection').style.display = 'block'; // Mostrar sección de recuerdo
+           document.getElementById('startMemoryTest').disabled = true; // Deshabilitar botón de inicio
+           setTimeout(function() {
+               document.getElementById('wordsToRemember').textContent = ''; // Ocultar palabras después de 5 segundos
+           }, 5000); // Tiempo de visualización de las palabras (5 segundos)
+       });
 
-        // Detener el cronómetro
-        document.getElementById('stopButton').addEventListener('click', function() {
-            endTime = new Date().getTime();  // Guardar el tiempo de fin
-            const reactionTime = (endTime - startTime) / 1000;  // Calcular el tiempo de reacción en segundos
+       // Enviar las palabras recordadas
+       document.getElementById('submitRecall').addEventListener('click', function() {
+           const recalledWords = document.getElementById('recallInput').value.split(',').map(word => word.trim());
+           const correctCount = recalledWords.filter(word => words.includes(word)).length; // Contar palabras correctas
+           document.getElementById('memoryResult').textContent = `Recordaste ${correctCount} de ${words.length} palabras.`; // Mostrar resultado
+           document.getElementById('recallInput').value = ''; // Limpiar campo de entrada
+           document.getElementById('recallInput').disabled = true; // Deshabilitar campo de entrada
+           document.getElementById('submitRecall').style.display = 'none'; // Ocultar botón de enviar
+           document.getElementById('startMemoryTest').disabled = false; // Habilitar botón de inicio nuevamente
+       });
+   </script>
 
-            let message; // Variable para almacenar el mensaje
-
-            // Calcular la diferencia respecto a 5 segundos
-            const differenceFromFive = reactionTime - 5;
-
-            if (reactionTime < 3.0) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Quizás estés un poco ansioso. ¡Intenta relajarte y prueba de nuevo!`;
-            } else if (reactionTime >= 3.0 && reactionTime < 4.0) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás bien, pero con un poco más de práctica podrás mejorar aún más.`;
-            } else if (reactionTime >= 4.0 && reactionTime < 4.5) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Está bastante bien, pero hay que ajustar un poquitin. ¡Sigue practicando!`;
-            } else if (reactionTime === 5.0) {
-                message = `¡Perfecto! Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Eres un maestro en esto!`;
-            } else if (reactionTime > 5.0 && reactionTime <= 5.5) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás casi perfecto; solo un error por décimas. ¡Sigue así!`;
-            } else if (reactionTime > 5.5 && reactionTime <= 6.5) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Te has pasado un poco. No te preocupes, ¡practica más y mejorarás!`;
-            } else if (reactionTime > 6.5 && reactionTime <= 8.0) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Puede que necesites un poco más de atención. ¡No dudes en volver a intentarlo!`;
-            } else {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Debes intentarlo de nuevo!`;
-            }
-
-            document.getElementById('result').textContent = message;  // Mostrar el resultado
-            document.getElementById('startButton').disabled = false;  // Habilitar botón de inicio
-            document.getElementById('stopButton').disabled = true;  // Deshabilitar botón de detener
-        });
-    </script>
-</section>
-
-    <!-- Sección de Prueba de Memoria a Corto Plazo -->
-    <section id="memoria-corto-plazo">
-        <h2>Prueba de Memoria a Corto Plazo</h2>
-        <p>Recuerda las palabras que verás a continuación:</p>
-        <div id="word-container" style="display: none;"></div>
-        <button id="startMemoryTest">Iniciar Prueba</button> <!-- Botón de Iniciar Prueba -->
-        <button id="showWords" style="display: none;">Mostrar Palabras</button>
-        <label for="recallInput">Escribe las palabras que recuerdas:</label>
-        <input type="text" id="recallInput" disabled>
-        <button id="submitRecall" style="display: none;">Enviar</button>
-        <p id="memoryResult"></p>
-    </section>
-
-    <script>
-        const words = ['manzana', 'banana', 'cereza', 'naranja', 'uva', 'kiwi', 'fresa', 'mango', 'pera', 'melón'];
-        let displayedWords = [];
-
-        // Iniciar la prueba de memoria
-        document.getElementById('startMemoryTest').addEventListener('click', function() {
-            displayedWords = [];
-            document.getElementById('word-container').innerHTML = '';  // Limpiar palabras anteriores
-            for (let i = 0; i < 5; i++) {
-                const randomWord = words[Math.floor(Math.random() * words.length)];
-                displayedWords.push(randomWord);
-                document.getElementById('word-container').innerHTML += `<span>${randomWord} </span>`;
-            }
-            document.getElementById('word-container').style.display = 'block';  // Mostrar palabras
-            document.getElementById('showWords').style.display = 'block';  // Habilitar botón de mostrar
-            document.getElementById('recallInput').disabled = true;  // Deshabilitar input
-            document.getElementById('submitRecall').style.display = 'none';  // Ocultar botón de enviar
-        });
-
-        // Mostrar palabras
-        document.getElementById('showWords').addEventListener('click', function() {
-            document.getElementById('recallInput').disabled = false;  // Habilitar input
-            document.getElementById('recallInput').value = '';  // Limpiar input
-            document.getElementById('submitRecall').style.display = 'block';  // Mostrar botón de enviar
-        });
-
-        // Enviar palabras recordadas
-        document.getElementById('submitRecall').addEventListener('click', function() {
-            const recalledWords = document.getElementById('recallInput').value.split(',').map(word => word.trim());
-            const correctCount = recalledWords.filter(word => displayedWords.includes(word)).length;
-            document.getElementById('memoryResult').textContent = `Recuerdas ${correctCount} de ${displayedWords.length} palabras.`;
-        });
-    </script>
-
-    <!-- Sección de Contacto -->
-    <section id="contacto">
-        <h2>Déjame tu consulta</h2>
-        <form action="mailto:fernandoanibalini.psico@gmail.com" method="post" enctype="text/plain">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="mensaje">Mensaje:</label>
-            <textarea id="mensaje" name="mensaje" required></textarea>
-
-            <button type="submit">Enviar</button>
-        </form>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Psicodiagnósticos Online. Todos los derechos reservados.</p>
-    </footer>
+   <footer>
+       <p>© 2024 Psicodiagnósticos Online. Todos los derechos reservados.</p>
+   </footer>
 </body>
 </html>
