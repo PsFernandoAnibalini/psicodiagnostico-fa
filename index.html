@@ -199,6 +199,70 @@
     </script>
 </section>
 
+<!-- Sección de Ejercicio de Memoria -->
+<section id="memory-test">
+    <h2>Ejercicio de Memoria</h2>
+    <p>Prueba tu memoria con esta lista de palabras. Intenta recordar tantas como puedas.</p>
+    <ul id="wordList" style="display: none;">
+        <li>manzana</li>
+        <li>banana</li>
+        <li>naranja</li>
+        <li>uva</li>
+        <li>kiwi</li>
+        <li>piña</li>
+        <li>mango</li>
+        <li>cereza</li>
+    </ul>
+    <button id="showWords">Mostrar Palabras</button>
+    <button id="restart">Reiniciar</button>
+    <p id="memoryResult"></p>
+    <label for="recallInput">Escribe las palabras que recuerdas:</label>
+    <input type="text" id="recallInput" disabled>
+    <button id="submitRecall" disabled>Enviar</button>
+
+    <script>
+        const words = ["manzana", "banana", "naranja", "uva", "kiwi", "piña", "mango", "cereza"];
+        const wordList = document.getElementById('wordList');
+        const showWordsButton = document.getElementById('showWords');
+        const restartButton = document.getElementById('restart');
+        const recallInput = document.getElementById('recallInput');
+        const submitRecallButton = document.getElementById('submitRecall');
+        const memoryResult = document.getElementById('memoryResult');
+
+        // Mostrar palabras
+        showWordsButton.addEventListener('click', function() {
+            wordList.style.display = 'block';
+            recallInput.disabled = false;
+            submitRecallButton.disabled = false;
+            showWordsButton.disabled = true; // Deshabilitar el botón de mostrar
+            restartButton.disabled = false; // Habilitar el botón de reiniciar
+        });
+
+        // Reiniciar la prueba
+        restartButton.addEventListener('click', function() {
+            wordList.style.display = 'none';
+            recallInput.value = '';
+            recallInput.disabled = true;
+            submitRecallButton.disabled = true;
+            showWordsButton.disabled = false; // Habilitar el botón de mostrar
+            restartButton.disabled = true; // Deshabilitar el botón de reiniciar
+            memoryResult.textContent = ''; // Limpiar el resultado
+        });
+
+        // Enviar las palabras recordadas
+        submitRecallButton.addEventListener('click', function() {
+            const recalledWords = recallInput.value.split(',').map(word => word.trim());
+            const correctCount = recalledWords.filter(word => words.includes(word)).length;
+            memoryResult.textContent = `Recordaste ${correctCount} de ${words.length} palabras.`;
+            recallInput.value = ''; // Limpiar campo de entrada
+            recallInput.disabled = true; // Deshabilitar campo de entrada
+            submitRecallButton.style.display = 'none'; // Ocultar botón de enviar
+            showWordsButton.disabled = false; // Habilitar botón de mostrar nuevamente
+        });
+    </script>
+</section>
+
+    
 <!-- Sección de Contacto -->
 <section id="contacto">
     <h2>Dejame tu consulta</h2>
