@@ -209,12 +209,12 @@
         <li>naranja</li>
         <li>uva</li>
         <li>kiwi</li>
-        <li>anana</li>
+        <li>piña</li>
         <li>mango</li>
         <li>cereza</li>
     </ul>
     <button id="showWords" style="background-color: #007700; color: white;">Mostrar Palabras</button>
-    <button id="restart">Reiniciar</button>
+    <button id="restart" disabled>Reiniciar</button>
     <p id="memoryResult"></p>
     <label for="recallInput">Escribe las palabras que recuerdas:</label>
     <input type="text" id="recallInput" disabled>
@@ -239,6 +239,13 @@
             
             // Cambiar el color del botón a gris
             showWordsButton.style.backgroundColor = '#cccccc';
+
+            // Ocultar las palabras después de 10 segundos
+            setTimeout(() => {
+                wordList.style.display = 'none';
+                recallInput.disabled = true; // Deshabilitar campo de entrada
+                submitRecallButton.disabled = true; // Deshabilitar botón de enviar
+            }, 10000); // 10000 ms = 10 segundos
         });
 
         // Reiniciar la prueba
