@@ -213,8 +213,8 @@
         <li>mango</li>
         <li>cereza</li>
     </ul>
-    <button id="showWords" style="background-color: #007700; color: white;">Mostrar Palabras</button>
-    <button id="restart" disabled>Reiniciar</button>
+    <button id="showWords" style="background-color: #007bff; color: white;">Mostrar Palabras</button>
+    <button id="restart" style="background-color: #ff4d4d;" disabled>Reiniciar</button>
     <p id="memoryResult"></p>
     <label for="recallInput">Escribe las palabras que recuerdas:</label>
     <input type="text" id="recallInput" disabled>
@@ -259,7 +259,7 @@
             memoryResult.textContent = ''; // Limpiar el resultado
             
             // Restablecer el color del botón a azul
-            showWordsButton.style.backgroundColor = '#007700';
+            showWordsButton.style.backgroundColor = '#007bff'; // Azul
         });
 
         // Enviar las palabras recordadas
