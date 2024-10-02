@@ -68,7 +68,7 @@
         }
 
         /* Estilo para el botón de iniciar */
-        #startButton {
+        #startButton, #startMemoryTest {
             background-color: #003366; /* Azul oscuro */
         }
 
@@ -186,92 +186,83 @@
                 message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás casi perfecto; solo un error por décimas. ¡Sigue así!`;
             } else if (reactionTime > 5.5 && reactionTime <= 6.5) {
                 message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Te has pasado un poco. No te preocupes, ¡practica más y mejorarás!`;
-            } else if (reactionTime > 6.5 && reactionTime <= 7.5) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Relájate y practica más. ¡Puedes hacerlo mejor!`;
+            } else if (reactionTime > 6.5 && reactionTime <= 8.0) {
+                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Puede que necesites un poco más de atención. ¡No dudes en volver a intentarlo!`;
             } else {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Parece que estás teniendo dificultades. ¡Intenta relajarte y enfocarte más en el ejercicio!`;
+                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Debes intentarlo de nuevo!`;
             }
 
             document.getElementById('result').textContent = message;  // Mostrar el resultado
-            document.getElementById('startButton').disabled = false;  // Rehabilitar botón de inicio
+            document.getElementById('startButton').disabled = false;  // Habilitar botón de inicio
             document.getElementById('stopButton').disabled = true;  // Deshabilitar botón de detener
         });
     </script>
 </section>
 
-  <!-- Sección de Prueba de Memoria a Corto Plazo -->
-<section id="memoria-corto-plazo">
-    <h2>Prueba de Memoria a Corto Plazo</h2>
-    <p>Recuerda las palabras que verás a continuación:</p>
-    <div id="word-container" style="display: none;"></div>
-    <button id="startMemoryTest">Iniciar Prueba</button> <!-- Este botón ya tiene el ID correcto -->
-    <button id="showWords" style="display: none;">Mostrar Palabras</button>
-    <label for="recallInput">Escribe las palabras que recuerdas:</label>
-    <input type="text" id="recallInput" disabled>
-    <button id="submitRecall" style="display: none;">Enviar</button>
-    <p id="memoryResult"></p>
+    <!-- Sección de Prueba de Memoria a Corto Plazo -->
+    <section id="memoria-corto-plazo">
+        <h2>Prueba de Memoria a Corto Plazo</h2>
+        <p>Recuerda las palabras que verás a continuación:</p>
+        <div id="word-container" style="display: none;"></div>
+        <button id="startMemoryTest">Iniciar Prueba</button> <!-- Botón de Iniciar Prueba -->
+        <button id="showWords" style="display: none;">Mostrar Palabras</button>
+        <label for="recallInput">Escribe las palabras que recuerdas:</label>
+        <input type="text" id="recallInput" disabled>
+        <button id="submitRecall" style="display: none;">Enviar</button>
+        <p id="memoryResult"></p>
+    </section>
 
     <script>
-        // (Código de la prueba de memoria...)
-    </script>
-</section>
+        const words = ['manzana', 'banana', 'cereza', 'naranja', 'uva', 'kiwi', 'fresa', 'mango', 'pera', 'melón'];
+        let displayedWords = [];
 
+        // Iniciar la prueba de memoria
+        document.getElementById('startMemoryTest').addEventListener('click', function() {
+            displayedWords = [];
+            document.getElementById('word-container').innerHTML = '';  // Limpiar palabras anteriores
+            for (let i = 0; i < 5; i++) {
+                const randomWord = words[Math.floor(Math.random() * words.length)];
+                displayedWords.push(randomWord);
+                document.getElementById('word-container').innerHTML += `<span>${randomWord} </span>`;
+            }
+            document.getElementById('word-container').style.display = 'block';  // Mostrar palabras
+            document.getElementById('showWords').style.display = 'block';  // Habilitar botón de mostrar
+            document.getElementById('recallInput').disabled = true;  // Deshabilitar input
+            document.getElementById('submitRecall').style.display = 'none';  // Ocultar botón de enviar
+        });
 
-        // Enviar las palabras recordadas
+        // Mostrar palabras
+        document.getElementById('showWords').addEventListener('click', function() {
+            document.getElementById('recallInput').disabled = false;  // Habilitar input
+            document.getElementById('recallInput').value = '';  // Limpiar input
+            document.getElementById('submitRecall').style.display = 'block';  // Mostrar botón de enviar
+        });
+
+        // Enviar palabras recordadas
         document.getElementById('submitRecall').addEventListener('click', function() {
             const recalledWords = document.getElementById('recallInput').value.split(',').map(word => word.trim());
-            const correctCount = recalledWords.filter(word => words.includes(word)).length;
-            memoryResult.textContent = `Recordaste ${correctCount} de ${words.length} palabras.`;
-            document.getElementById('recallInput').value = ''; // Limpiar campo de entrada
-            document.getElementById('recallInput').disabled = true; // Deshabilitar campo de entrada
-            document.getElementById('submitRecall').style.display = 'none'; // Ocultar botón de enviar
-            document.getElementById('startMemoryTest').disabled = false; // Habilitar botón de inicio nuevamente
+            const correctCount = recalledWords.filter(word => displayedWords.includes(word)).length;
+            document.getElementById('memoryResult').textContent = `Recuerdas ${correctCount} de ${displayedWords.length} palabras.`;
         });
     </script>
-</section>
 
-    
-<!-- Sección de Contacto -->
-<section id="contacto">
-    <h2>Dejame tu consulta</h2>
-    <form id="contactForm" action="https://Fernandoanibalinipsico.infinityfreeapp.com/send_email.php" method="POST">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <label for="telefono">Teléfono:</label>
-        <input type="tel" id="telefono" name="telefono" required>
-        <label for="email">Correo Electrónico:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="mensaje">Mensaje:</label>
-        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-        <button type="submit">Enviar</button>
-    </form>
-    <p id="confirmationMessage" style="display:none;"></p> <!-- Mensaje de confirmación -->
-</section>
+    <!-- Sección de Contacto -->
+    <section id="contacto">
+        <h2>Déjame tu consulta</h2>
+        <form action="mailto:fernandoanibalini.psico@gmail.com" method="post" enctype="text/plain">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
 
-<script>
-    // Manejar el envío del formulario
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Evitar que el formulario se envíe de la manera tradicional
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
 
-        // Obtener los valores del formulario
-        const nombre = document.getElementById('nombre').value;
-        const telefono = document.getElementById('telefono').value;
-        const email = document.getElementById('email').value;
-        const mensaje = document.getElementById('mensaje').value;
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
 
-        // Aquí podrías enviar los datos a un servidor si fuera necesario
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
 
-        // Mostrar mensaje de confirmación
-        const confirmationMessage = `Gracias, ${nombre}. Tu consulta ha sido enviada. Te contactaremos pronto.`;
-        document.getElementById('confirmationMessage').textContent = confirmationMessage;
-        document.getElementById('confirmationMessage').style.display = 'block';
-
-        // Limpiar el formulario
-        document.getElementById('contactForm').reset();
-    });
-</script>
-    
-    <!-- Pie de página -->
     <footer>
         <p>&copy; 2024 Psicodiagnósticos Online. Todos los derechos reservados.</p>
     </footer>
