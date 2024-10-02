@@ -235,14 +235,16 @@
             wordList.style.display = 'block'; // Mostrar palabras
             showWordsButton.style.backgroundColor = '#ccc'; // Cambiar a gris
             showWordsButton.disabled = true; // Deshabilitar botón
-            recallInput.disabled = false; // Habilitar campo de entrada
-            submitRecall.style.display = 'inline-block'; // Mostrar botón de enviar
+            recallInput.disabled = true; // Mantener campo de entrada deshabilitado
+            submitRecall.style.display = 'none'; // Ocultar botón de enviar
             restartButton.style.display = 'inline-block'; // Mostrar botón de reiniciar
 
             // Ocultar las palabras después de 10 segundos
             setTimeout(() => {
                 wordList.style.display = 'none'; // Ocultar palabras
+                recallInput.disabled = false; // Habilitar campo de entrada
                 recallInput.focus(); // Focalizar en el campo de entrada
+                submitRecall.style.display = 'inline-block'; // Mostrar botón de enviar
             }, 10000);
         });
 
@@ -270,6 +272,7 @@
         });
     </script>
 </section>
+
     
 <!-- Sección de Contacto -->
 <section id="contacto">
