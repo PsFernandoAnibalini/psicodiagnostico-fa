@@ -199,12 +199,12 @@
     </script>
 </section>
 
-    <!-- Sección de Prueba de Memoria a Corto Plazo -->
+  <!-- Sección de Prueba de Memoria a Corto Plazo -->
 <section id="memoria-corto-plazo">
     <h2>Prueba de Memoria a Corto Plazo</h2>
     <p>Recuerda las palabras que verás a continuación:</p>
     <div id="word-container" style="display: none;"></div>
-    <button id="startMemoryTest">Iniciar Prueba</button>
+    <button id="startMemoryTest">Iniciar Prueba</button> <!-- Este botón ya tiene el ID correcto -->
     <button id="showWords" style="display: none;">Mostrar Palabras</button>
     <label for="recallInput">Escribe las palabras que recuerdas:</label>
     <input type="text" id="recallInput" disabled>
@@ -212,25 +212,10 @@
     <p id="memoryResult"></p>
 
     <script>
-        const words = ["manzana", "banana", "naranja", "uva", "kiwi"];
-        let displayTime = 3000; // Tiempo en milisegundos
-        let wordContainer = document.getElementById('word-container');
-        let memoryResult = document.getElementById('memoryResult');
+        // (Código de la prueba de memoria...)
+    </script>
+</section>
 
-        // Iniciar prueba de memoria
-        document.getElementById('startMemoryTest').addEventListener('click', function() {
-            document.getElementById('startMemoryTest').disabled = true; // Deshabilitar botón de inicio
-            document.getElementById('showWords').style.display = 'block'; // Mostrar botón para mostrar palabras
-            memoryResult.textContent = ''; // Limpiar resultados anteriores
-            wordContainer.innerHTML = words.join(', '); // Mostrar palabras
-            wordContainer.style.display = 'block'; // Hacer visible el contenedor de palabras
-            setTimeout(() => {
-                wordContainer.style.display = 'none'; // Ocultar palabras después de 3 segundos
-                document.getElementById('showWords').style.display = 'none'; // Ocultar botón para mostrar palabras
-                document.getElementById('recallInput').disabled = false; // Habilitar campo de entrada
-                document.getElementById('submitRecall').style.display = 'block'; // Mostrar botón para enviar
-            }, displayTime);
-        });
 
         // Enviar las palabras recordadas
         document.getElementById('submitRecall').addEventListener('click', function() {
