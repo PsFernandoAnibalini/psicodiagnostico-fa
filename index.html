@@ -44,6 +44,7 @@
             margin-top: 10px;
             border: 1px solid #ced4da;
             border-radius: 5px;
+            display: none; /* Ocultar inicialmente */
         }
 
         #result {
@@ -58,21 +59,14 @@
     <p>Prueba tu memoria con esta lista de palabras. Intenta recordar tantas como puedas.</p>
 
     <div class="word-list" id="wordsToRemember">
-        manzana<br>
-        banana<br>
-        naranja<br>
-        uva<br>
-        kiwi<br>
-        piña<br>
-        mango<br>
-        cereza
+        manzana, banana, naranja, uva, kiwi, piña, mango, cereza
     </div>
 
     <button id="showWordsButton">Mostrar Palabras</button>
     <button id="restartButton">Reiniciar</button>
 
-    <input type="text" id="memoryInput" placeholder="Escribe las palabras que recuerdes" disabled>
-    <button id="submitMemoryButton" disabled>Enviar</button>
+    <input type="text" id="memoryInput" placeholder="Escribe las palabras que recuerdes">
+    <button id="submitMemoryButton">Enviar</button>
 
     <div id="result"></div>
 
@@ -85,16 +79,15 @@
         // Mostrar palabras
         document.getElementById('showWordsButton').addEventListener('click', function() {
             wordsToRemember.style.display = 'block'; // Mostrar palabras
-            memoryInput.disabled = false; // Habilitar el campo de entrada
-            submitMemoryButton.disabled = false; // Habilitar botón de enviar
+            memoryInput.style.display = 'block'; // Mostrar campo de entrada
+            memoryInput.focus(); // Focalizar el campo de entrada
         });
 
         // Reiniciar
         document.getElementById('restartButton').addEventListener('click', function() {
             wordsToRemember.style.display = 'none'; // Ocultar palabras
             memoryInput.value = ''; // Limpiar input
-            memoryInput.disabled = true; // Deshabilitar el campo de entrada
-            submitMemoryButton.disabled = true; // Deshabilitar botón de enviar
+            memoryInput.style.display = 'none'; // Ocultar campo de entrada
             result.textContent = ''; // Limpiar resultado
         });
 
@@ -112,8 +105,7 @@
             // Restablecer el formulario
             wordsToRemember.style.display = 'none'; // Ocultar palabras
             memoryInput.value = ''; // Limpiar input
-            memoryInput.disabled = true; // Deshabilitar el campo de entrada
-            submitMemoryButton.disabled = true; // Deshabilitar botón de enviar
+            memoryInput.style.display = 'none'; // Ocultar campo de entrada
         });
     </script>
 </body>
