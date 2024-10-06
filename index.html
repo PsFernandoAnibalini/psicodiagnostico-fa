@@ -299,7 +299,53 @@
     <button id="startButton">Comenzar Test</button>
 </section>
 
-    
+<script>
+    const colors = ["Rojo", "Verde", "Azul", "Amarillo"];
+    const colorNames = ["Rojo", "Verde", "Azul", "Amarillo"];
+    let currentColor;
+
+    // Iniciar el test
+    document.getElementById('startButton').addEventListener('click', function() {
+        this.style.display = 'none'; // Ocultar el botón de inicio
+        showColorWord(); // Mostrar la primera palabra de color
+    });
+
+    function showColorWord() {
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        const randomNameIndex = Math.floor(Math.random() * colorNames.length);
+        currentColor = colors[randomIndex];
+
+        // Mostrar la palabra en un color diferente
+        document.getElementById('colorWord').textContent = colorNames[randomNameIndex];
+        document.getElementById('colorWord').style.color = currentColor;
+
+        // Mostrar botones
+        document.getElementById('redButton').style.display = 'inline-block';
+        document.getElementById('greenButton').style.display = 'inline-block';
+        document.getElementById('blueButton').style.display = 'inline-block';
+        document.getElementById('yellowButton').style.display = 'inline-block';
+    }
+
+    // Manejar clics en botones
+    document.getElementById('redButton').addEventListener('click', checkAnswer);
+    document.getElementById('greenButton').addEventListener('click', checkAnswer);
+    document.getElementById('blueButton').addEventListener('click', checkAnswer);
+    document.getElementById('yellowButton').addEventListener('click', checkAnswer);
+
+    function checkAnswer(event) {
+        const selectedColor = event.target.textContent;
+        const message = selectedColor === currentColor ? "¡Correcto!" : "Incorrecto. La palabra era: " + currentColor;
+
+        document.getElementById('result').textContent = message;
+
+        // Esperar un segundo antes de mostrar la siguiente palabra
+        setTimeout(() => {
+            document.getElementById('result').textContent = '';
+            showColorWord();
+        }, 1000);
+    }
+</script>
+
     
 <!-- Sección de Contacto -->
 <section id="contacto">
