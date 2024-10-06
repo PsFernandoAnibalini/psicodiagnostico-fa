@@ -77,11 +77,6 @@
             background-color: #cc0000; /* Rojo fuerte */
         }
 
-        /* Estilo para el botón de reiniciar */
-        #resetButton {
-            background-color: #cc0000; /* Rojo fuerte */
-        }
-
         /* Estilo para otros botones */
         button {
             background-color: #007700; /* Verde más claro para los botones de servicios */
@@ -217,177 +212,120 @@
     </script>
 </section>
 
-    <!-- Sección de Ejercicio de Memoria -->
-    <section id="memory-exercise">
-        <h2>Ejercicio de Memoria</h2>
-        <p>Prueba tu memoria con esta lista de palabras. Tendrás 10 segundos antes que desaparezcan. Intenta recordar tantas como puedas.</p>
-        <ul id="wordList" style="display: none;">
-            <li>manzana</li>
-            <li>banana</li>
-            <li>naranja</li>
-            <li>uva</li>
-            <li>kiwi</li>
-            <li>piña</li>
-            <li>mango</li>
-            <li>cereza</li>
-        </ul>
-        <button id="showWordsButton" style="background-color: #003366;">Mostrar Palabras</button>
-        <button id="restartButton" style="background-color: #cc0000; display: none;">Reiniciar</button>
-        <label for="recallInput">Escribe las palabras que recuerdas:</label>
-        <input type="text" id="recallInput" disabled>
-        <button id="submitRecall" style="display: none;">Enviar</button>
-        <p id="memoryResult"></p>
-
-        <script>
-            // Configuración del ejercicio de memoria
-            const words = ["manzana", "banana", "naranja", "uva", "kiwi", "piña", "mango", "cereza"];
-            const wordList = document.getElementById('wordList');
-            const showWordsButton = document.getElementById('showWordsButton');
-            const recallInput = document.getElementById('recallInput');
-            const submitRecall = document.getElementById('submitRecall');
-            const memoryResult = document.getElementById('memoryResult');
-            const restartButton = document.getElementById('restartButton');
-
-            // Función para mostrar las palabras
-            showWordsButton.addEventListener('click', function() {
-                wordList.style.display = 'block'; // Mostrar palabras
-                showWordsButton.style.backgroundColor = '#ccc'; // Cambiar a gris
-                showWordsButton.disabled = true; // Deshabilitar botón
-                recallInput.disabled = true; // Mantener campo de entrada deshabilitado
-                submitRecall.style.display = 'none'; // Ocultar botón de enviar
-                restartButton.style.display = 'inline-block'; // Mostrar botón de reiniciar
-
-                // Ocultar las palabras después de 10 segundos
-                setTimeout(() => {
-                    wordList.style.display = 'none'; // Ocultar palabras
-                    recallInput.disabled = false; // Habilitar campo de entrada
-                    recallInput.focus(); // Focalizar en el campo de entrada
-                    submitRecall.style.display = 'inline-block'; // Mostrar botón de enviar
-                }, 10000);
-            });
-
-            // Enviar las palabras recordadas
-            submitRecall.addEventListener('click', function() {
-                const recalledWords = recallInput.value.split(',').map(word => word.trim());
-                const correctCount = recalledWords.filter(word => words.includes(word)).length;
-                memoryResult.textContent = `Recordaste ${correctCount} de ${words.length} palabras.`;
-                recallInput.value = ''; // Limpiar campo de entrada
-                recallInput.disabled = true; // Deshabilitar campo de entrada
-                submitRecall.style.display = 'none'; // Ocultar botón de enviar
-                restartButton.style.display = 'inline-block'; // Mostrar botón de reiniciar
-            });
-
-            // Reiniciar el ejercicio
-            restartButton.addEventListener('click', function() {
-                wordList.style.display = 'none'; // Ocultar palabras
-                recallInput.value = ''; // Limpiar campo de entrada
-                recallInput.disabled = true; // Deshabilitar campo de entrada
-                memoryResult.textContent = ''; // Limpiar resultado
-                showWordsButton.style.backgroundColor = '#003366'; // Volver a azul
-                showWordsButton.disabled = false; // Habilitar botón
-                submitRecall.style.display = 'none'; // Ocultar botón de enviar
-                restartButton.style.display = 'none'; // Ocultar botón de reiniciar
-            });
-        </script>
-    </section>
-
-    <!-- Sección del Test de Stroop Modificado -->
-    <section id="stroop-test">
-        <h2>Test de Atención y Memoria</h2>
-        <p>Haz clic en el nombre del color, no en la palabra.</p>
-        <div id="colorWord"></div>
-        <button id="redButton" style="display:none;">Rojo</button>
-        <button id="greenButton" style="display:none;">Verde</button>
-        <button id="blueButton" style="display:none;">Azul</button>
-        <button id="yellowButton" style="display:none;">Amarillo</button>
-        <p id="result"></p>
-        <button id="startButton">Comenzar Test</button>
-    </section>
+<!-- Sección de Ejercicio de Memoria -->
+<section id="memory-exercise">
+    <h2>Ejercicio de Memoria</h2>
+    <p>Prueba tu memoria con esta lista de palabras. Tendrás 10 segundos antes que desaparezcan. Intenta recordar tantas como puedas.</p>
+    <ul id="wordList" style="display: none;">
+        <li>manzana</li>
+        <li>banana</li>
+        <li>naranja</li>
+        <li>uva</li>
+        <li>kiwi</li>
+        <li>piña</li>
+        <li>mango</li>
+        <li>cereza</li>
+    </ul>
+    <button id="showWordsButton" style="background-color: #003366;">Mostrar Palabras</button>
+    <button id="restartButton" style="background-color: #cc0000; display: none;">Reiniciar</button>
+    <label for="recallInput">Escribe las palabras que recuerdas:</label>
+    <input type="text" id="recallInput" disabled>
+    <button id="submitRecall" style="display: none;">Enviar</button>
+    <p id="memoryResult"></p>
 
     <script>
-        const colors = ["Rojo", "Verde", "Azul", "Amarillo"];
-        const colorNames = ["Rojo", "Verde", "Azul", "Amarillo"];
-        let currentColor;
+        // Configuración del ejercicio de memoria
+        const words = ["manzana", "banana", "naranja", "uva", "kiwi", "piña", "mango", "cereza"];
+        const wordList = document.getElementById('wordList');
+        const showWordsButton = document.getElementById('showWordsButton');
+        const recallInput = document.getElementById('recallInput');
+        const submitRecall = document.getElementById('submitRecall');
+        const memoryResult = document.getElementById('memoryResult');
+        const restartButton = document.getElementById('restartButton');
 
-        // Iniciar el test
-        document.getElementById('startButton').addEventListener('click', function() {
-            this.style.display = 'none'; // Ocultar el botón de inicio
-            showColorWord(); // Mostrar la primera palabra de color
-        });
+        // Función para mostrar las palabras
+        showWordsButton.addEventListener('click', function() {
+            wordList.style.display = 'block'; // Mostrar palabras
+            showWordsButton.style.backgroundColor = '#ccc'; // Cambiar a gris
+            showWordsButton.disabled = true; // Deshabilitar botón
+            recallInput.disabled = true; // Mantener campo de entrada deshabilitado
+            submitRecall.style.display = 'none'; // Ocultar botón de enviar
+            restartButton.style.display = 'inline-block'; // Mostrar botón de reiniciar
 
-        function showColorWord() {
-            const randomIndex = Math.floor(Math.random() * colors.length);
-            const randomNameIndex = Math.floor(Math.random() * colorNames.length);
-            currentColor = colors[randomIndex];
-
-            // Mostrar la palabra en un color diferente
-            document.getElementById('colorWord').textContent = colorNames[randomNameIndex];
-            document.getElementById('colorWord').style.color = currentColor;
-
-            // Mostrar botones
-            document.getElementById('redButton').style.display = 'inline-block';
-            document.getElementById('greenButton').style.display = 'inline-block';
-            document.getElementById('blueButton').style.display = 'inline-block';
-            document.getElementById('yellowButton').style.display = 'inline-block';
-        }
-
-        // Manejar clics en botones
-        document.getElementById('redButton').addEventListener('click', checkAnswer);
-        document.getElementById('greenButton').addEventListener('click', checkAnswer);
-        document.getElementById('blueButton').addEventListener('click', checkAnswer);
-        document.getElementById('yellowButton').addEventListener('click', checkAnswer);
-
-        function checkAnswer(event) {
-            const selectedColor = event.target.textContent;
-            const message = selectedColor === currentColor ? "¡Correcto!" : "Incorrecto. La palabra era: " + currentColor;
-
-            document.getElementById('result').textContent = message;
-
-            // Esperar un segundo antes de mostrar la siguiente palabra
+            // Ocultar las palabras después de 10 segundos
             setTimeout(() => {
-                document.getElementById('result').textContent = '';
-                showColorWord();
-            }, 1000);
-        }
-    </script>
+                wordList.style.display = 'none'; // Ocultar palabras
+                recallInput.disabled = false; // Habilitar campo de entrada
+                recallInput.focus(); // Focalizar en el campo de entrada
+                submitRecall.style.display = 'inline-block'; // Mostrar botón de enviar
+            }, 10000);
+        });
 
-    <!-- Sección de Contacto -->
-    <section id="contacto">
-        <h2>Dejame tu consulta</h2>
-        <form id="contactForm" action="https://Fernandoanibalinipsico.infinityfreeapp.com/send_email.php" method="POST">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
-            <label for="telefono">Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" required>
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="mensaje">Mensaje:</label>
-            <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-        <p id="confirmationMessage" style="display:none;"></p> <!-- Mensaje de confirmación -->
-    </section>
+        // Enviar las palabras recordadas
+        submitRecall.addEventListener('click', function() {
+            const recalledWords = recallInput.value.split(',').map(word => word.trim());
+            const correctCount = recalledWords.filter(word => words.includes(word)).length;
+            memoryResult.textContent = `Recordaste ${correctCount} de ${words.length} palabras.`;
+            recallInput.value = ''; // Limpiar campo de entrada
+            recallInput.disabled = true; // Deshabilitar campo de entrada
+            submitRecall.style.display = 'none'; // Ocultar botón de enviar
+            restartButton.style.display = 'inline-block'; // Mostrar botón de reiniciar
+        });
 
-    <script>
-        // Manejar el envío del formulario
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Evitar que el formulario se envíe de la manera tradicional
-
-            // Obtener los valores del formulario
-            const nombre = document.getElementById('nombre').value;
-            const telefono = document.getElementById('telefono').value;
-            const email = document.getElementById('email').value;
-            const mensaje = document.getElementById('mensaje').value;
-
-            // Mostrar mensaje de confirmación
-            const confirmationMessage = `Gracias, ${nombre}. Tu consulta ha sido enviada. Te contactaremos pronto.`;
-            document.getElementById('confirmationMessage').textContent = confirmationMessage;
-            document.getElementById('confirmationMessage').style.display = 'block';
-
-            // Limpiar el formulario
-            document.getElementById('contactForm').reset();
+        // Reiniciar el ejercicio
+        restartButton.addEventListener('click', function() {
+            wordList.style.display = 'none'; // Ocultar palabras
+            recallInput.value = ''; // Limpiar campo de entrada
+            recallInput.disabled = true; // Deshabilitar campo de entrada
+            memoryResult.textContent = ''; // Limpiar resultado
+            showWordsButton.style.backgroundColor = '#003366'; // Volver a azul
+            showWordsButton.disabled = false; // Habilitar botón
+            submitRecall.style.display = 'none'; // Ocultar botón de enviar
+            restartButton.style.display = 'none'; // Ocultar botón de reiniciar
         });
     </script>
+</section>
+
+    
+<!-- Sección de Contacto -->
+<section id="contacto">
+    <h2>Dejame tu consulta</h2>
+    <form id="contactForm" action="https://Fernandoanibalinipsico.infinityfreeapp.com/send_email.php" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required>
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+    <p id="confirmationMessage" style="display:none;"></p> <!-- Mensaje de confirmación -->
+</section>
+
+<script>
+    // Manejar el envío del formulario
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evitar que el formulario se envíe de la manera tradicional
+
+        // Obtener los valores del formulario
+        const nombre = document.getElementById('nombre').value;
+        const telefono = document.getElementById('telefono').value;
+        const email = document.getElementById('email').value;
+        const mensaje = document.getElementById('mensaje').value;
+
+        // Aquí podrías enviar los datos a un servidor si fuera necesario
+
+        // Mostrar mensaje de confirmación
+        const confirmationMessage = `Gracias, ${nombre}. Tu consulta ha sido enviada. Te contactaremos pronto.`;
+        document.getElementById('confirmationMessage').textContent = confirmationMessage;
+        document.getElementById('confirmationMessage').style.display = 'block';
+
+        // Limpiar el formulario
+        document.getElementById('contactForm').reset();
+    });
+</script>
     
     <!-- Pie de página -->
     <footer>
