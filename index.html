@@ -186,21 +186,21 @@
             const differenceFromFive = reactionTime - 5;
 
             if (reactionTime < 3.0) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Quizás estés un poco ansioso. ¡Intenta relajarte y prueba de nuevo!`;
+                message = Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Quizás estés un poco ansioso. ¡Intenta relajarte y prueba de nuevo!;
             } else if (reactionTime >= 3.0 && reactionTime < 4.0) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás bien, pero con un poco más de práctica podrás mejorar aún más.`;
+                message = Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás bien, pero con un poco más de práctica podrás mejorar aún más.;
             } else if (reactionTime >= 4.0 && reactionTime < 4.5) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Está bastante bien, pero hay que ajustar un poquitin. ¡Sigue practicando!`;
+                message = Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Está bastante bien, pero hay que ajustar un poquitin. ¡Sigue practicando!;
             } else if (reactionTime === 5.0) {
-                message = `¡Perfecto! Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Eres un maestro en esto!`;
+                message = ¡Perfecto! Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. ¡Eres un maestro en esto!;
             } else if (reactionTime > 5.0 && reactionTime <= 5.5) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás casi perfecto; solo un error por décimas. ¡Sigue así!`;
+                message = Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Estás casi perfecto; solo un error por décimas. ¡Sigue así!;
             } else if (reactionTime > 5.5 && reactionTime <= 6.5) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Te has pasado un poco. No te preocupes, ¡practica más y mejorarás!`;
+                message = Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Te has pasado un poco. No te preocupes, ¡practica más y mejorarás!;
             } else if (reactionTime > 6.5 && reactionTime <= 7.5) {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Relájate y practica más. ¡Puedes hacerlo mejor!`;
+                message = Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Relájate y practica más. ¡Puedes hacerlo mejor!;
             } else {
-                message = `Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Parece que estás teniendo dificultades. ¡Intenta relajarte y enfocarte más en el ejercicio!`;
+                message = Tu tiempo de reacción fue de ${reactionTime.toFixed(3)} segundos. Parece que estás teniendo dificultades. ¡Intenta relajarte y enfocarte más en el ejercicio!;
             }
 
             document.getElementById('result').textContent = message;  // Mostrar el resultado
@@ -273,7 +273,7 @@
         submitRecall.addEventListener('click', function() {
             const recalledWords = recallInput.value.split(',').map(word => word.trim());
             const correctCount = recalledWords.filter(word => words.includes(word)).length;
-            memoryResult.textContent = `Recordaste ${correctCount} de ${words.length} palabras.`;
+            memoryResult.textContent = Recordaste ${correctCount} de ${words.length} palabras.;
             recallInput.value = ''; // Limpiar campo de entrada
             recallInput.disabled = true; // Deshabilitar campo de entrada
             submitRecall.style.display = 'none'; // Ocultar botón de enviar
@@ -293,165 +293,6 @@
         });
     </script>
 </section>
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test de Ansiedad</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh; /* Asegura que la altura ocupe toda la pantalla */
-            display: flex;
-            justify-content: center; /* Centra horizontalmente */
-            align-items: center; /* Centra verticalmente */
-            font-family: Arial, sans-serif;
-            text-align: center; /* Centra el texto de todo el body */
-        }
-
-        #ansiedadForm {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centra el formulario */
-        }
-
-        button {
-            background-color: #003366;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-top: 20px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #005299;
-        }
-    </style>
-</head>
-
-<body>
-    <div>
-        <h1>Bienvenido a nuestro test de ansiedad</h1>
-        <p>Contesta las siguientes preguntas para evaluar tu nivel de ansiedad:</p>
-
-        <form id="ansiedadForm">
-            <div id="questionContainer"></div> <!-- Aquí se generarán las preguntas dinámicamente -->
-            <button type="submit" id="submitTest">Enviar</button>
-        </form>
-    </div>
-</body>
-
-</html>
-
-
-    <!-- Botón para comenzar -->
-    <button type="button" id="startTestButton" style="background-color: #003366;">
-        Comenzar el Test
-    </button>
-
-    <!-- Aquí ocultamos el test inicialmente -->
-    <section id="ansiedad-test" style="display: none;">
-        <h2>Test de Ansiedad Ante la Muerte</h2>
-        <p>Contesta las siguientes preguntas para evaluar tu nivel de ansiedad:</p>
-
-        <form id="ansiedadForm">
-            <div id="questionContainer"></div> <!-- Aquí se generarán las preguntas dinámicamente -->
-
-            <button type="submit" id="submitTest" style="background-color: #003366;">Enviar</button>
-        </form>
-
-        <p id="testResult"></p> <!-- Aquí se mostrarán los resultados del test -->
-    </section>
-
-    <script>
-        // Muestra el test al hacer clic en el botón
-        document.getElementById('startTestButton').addEventListener('click', function() {
-            document.getElementById('ansiedad-test').style.display = 'block';
-            document.getElementById('startTestButton').style.display = 'none'; // Opcional: Oculta el botón después de hacer clic
-            cargarPreguntas(); // Cargar preguntas al mostrar el test
-        });
-
-        const preguntas = [
-            {
-                pregunta: "¿Te sientes ansioso/a al pensar en la muerte?",
-                respuestas: ["Nunca", "A veces", "Frecuentemente", "Siempre"],
-                puntajes: [0, 1, 2, 3] // Puntajes asociados a las respuestas
-            },
-            {
-                pregunta: "¿Evitas hablar sobre la muerte o el tema de la muerte?",
-                respuestas: ["Nunca", "A veces", "Frecuentemente", "Siempre"],
-                puntajes: [0, 1, 2, 3]
-            },
-            {
-                pregunta: "¿Te resulta difícil concentrarte debido a pensamientos sobre la muerte?",
-                respuestas: ["Nunca", "A veces", "Frecuentemente", "Siempre"],
-                puntajes: [0, 1, 2, 3]
-            },
-            {
-                pregunta: "¿Sientes miedo cuando piensas en el final de la vida?",
-                respuestas: ["Nunca", "A veces", "Frecuentemente", "Siempre"],
-                puntajes: [0, 1, 2, 3]
-            }
-            // Puedes agregar más preguntas aquí
-        ];
-
-        function cargarPreguntas() {
-            const container = document.getElementById('questionContainer');
-            preguntas.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.innerHTML = `
-                    <p>${item.pregunta}</p>
-                    <div>
-                        ${item.respuestas.map((respuesta, i) => {
-                            return `
-                                <label>
-                                    <input type="radio" name="question${index}" value="${item.puntajes[i]}" required>
-                                    ${respuesta}
-                                </label><br>
-                            `;
-                        }).join('')}
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        document.getElementById('ansiedadForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            let totalPuntaje = 0;
-
-            preguntas.forEach((item, index) => {
-                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-                if (selectedOption) {
-                    totalPuntaje += parseInt(selectedOption.value);
-                }
-            });
-
-            let resultado;
-            if (totalPuntaje <= 4) {
-                resultado = "Nivel bajo de ansiedad.";
-            } else if (totalPuntaje <= 8) {
-                resultado = "Nivel moderado de ansiedad.";
-            } else if (totalPuntaje <= 12) {
-                resultado = "Nivel alto de ansiedad.";
-            } else {
-                resultado = "Nivel muy alto de ansiedad. Es recomendable buscar apoyo profesional.";
-            }
-
-            document.getElementById('testResult').textContent = `Resultado: ${resultado}`;
-        });
-    </script>
-
-</body>
-</html>
-
-
 
     
 <!-- Sección de Contacto -->
@@ -485,7 +326,7 @@
         // Aquí podrías enviar los datos a un servidor si fuera necesario
 
         // Mostrar mensaje de confirmación
-        const confirmationMessage = `Gracias, ${nombre}. Tu consulta ha sido enviada. Te contactaremos pronto.`;
+        const confirmationMessage = Gracias, ${nombre}. Tu consulta ha sido enviada. Te contactaremos pronto.;
         document.getElementById('confirmationMessage').textContent = confirmationMessage;
         document.getElementById('confirmationMessage').style.display = 'block';
 
