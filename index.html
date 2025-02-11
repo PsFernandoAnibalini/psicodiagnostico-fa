@@ -294,6 +294,99 @@
     </script>
 </section>
 
+
+    <!-- Sección del Test de Ansiedad -->
+<section id="ansiedad-test">
+    <h2>Test de Ansiedad Ante la Muerte</h2>
+    <p>Contesta las siguientes preguntas para evaluar tu nivel de ansiedad:</p>
+
+    <form id="ansiedadForm">
+        <div id="questionContainer"></div> <!-- Aquí se generarán las preguntas dinámicamente -->
+
+        <button type="submit" id="submitTest" style="background-color: #003366;">Enviar</button>
+    </form>
+    
+    <p id="testResult"></p> <!-- Aquí se mostrarán los resultados del test -->
+</section>
+
+<script>
+    const preguntas = [
+        {
+            pregunta: "¿Te sientes ansioso/a al pensar en la muerte?",
+            respuestas: ["Nunca", "A veces", "Frecuentemente", "Siempre"],
+            puntajes: [0, 1, 2, 3] // Puntajes asociados a las respuestas
+        },
+        {
+            pregunta: "¿Evitas hablar sobre la muerte o el tema de la muerte?",
+            respuestas: ["Nunca", "A veces", "Frecuentemente", "Siempre"],
+            puntajes: [0, 1, 2, 3]
+        },
+        {
+            pregunta: "¿Te resulta difícil concentrarte debido a pensamientos sobre la muerte?",
+            respuestas: ["Nunca", "A veces", "Frecuentemente", "Siempre"],
+            puntajes: [0, 1, 2, 3]
+        },
+        {
+            pregunta: "¿Sientes miedo cuando piensas en el final de la vida?",
+            respuestas: ["Nunca", "A veces", "Frecuentemente", "Siempre"],
+            puntajes: [0, 1, 2, 3]
+        }
+        // Puedes agregar más preguntas aquí
+    ];
+
+    // Función para generar las preguntas y respuestas
+    function cargarPreguntas() {
+        const container = document.getElementById('questionContainer');
+        preguntas.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <p>${item.pregunta}</p>
+                <div>
+                    ${item.respuestas.map((respuesta, i) => {
+                        return `
+                            <label>
+                                <input type="radio" name="question${index}" value="${item.puntajes[i]}" required>
+                                ${respuesta}
+                            </label><br>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    // Función para procesar las respuestas y mostrar el resultado
+    document.getElementById('ansiedadForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        let totalPuntaje = 0;
+
+        preguntas.forEach((item, index) => {
+            const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+            if (selectedOption) {
+                totalPuntaje += parseInt(selectedOption.value);
+            }
+        });
+
+        let resultado;
+        if (totalPuntaje <= 4) {
+            resultado = "Nivel bajo de ansiedad.";
+        } else if (totalPuntaje <= 8) {
+            resultado = "Nivel moderado de ansiedad.";
+        } else if (totalPuntaje <= 12) {
+            resultado = "Nivel alto de ansiedad.";
+        } else {
+            resultado = "Nivel muy alto de ansiedad. Es recomendable buscar apoyo profesional.";
+        }
+
+        document.getElementById('testResult').textContent = `Resultado: ${resultado}`;
+    });
+
+    // Cargar las preguntas al cargar la página
+    window.onload = cargarPreguntas;
+</script>
+
     
 <!-- Sección de Contacto -->
 <section id="contacto">
