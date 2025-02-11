@@ -296,13 +296,58 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test de Ansiedad</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh; /* Asegura que la altura ocupe toda la pantalla */
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            font-family: Arial, sans-serif;
+            text-align: center; /* Centra el texto de todo el body */
+        }
+
+        #ansiedadForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra el formulario */
+        }
+
+        button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #005299;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Bienvenido a nuestro Test de Ansiedad</h1>
+    <div>
+        <h1>Bienvenido a nuestro test de ansiedad</h1>
+        <p>Contesta las siguientes preguntas para evaluar tu nivel de ansiedad:</p>
+
+        <form id="ansiedadForm">
+            <div id="questionContainer"></div> <!-- Aquí se generarán las preguntas dinámicamente -->
+            <button type="submit" id="submitTest">Enviar</button>
+        </form>
+    </div>
+</body>
+
+</html>
+
 
     <!-- Botón para comenzar -->
     <button type="button" id="startTestButton" style="background-color: #003366;">
